@@ -46,8 +46,8 @@ tableContainer.addEventListener('click', async function (event) {
         }));
     }
 
-    if (event.target.closest('.pagination-button') && !event.target.closest('.pagination-button').disabled) {
-        const button = event.target.closest('.pagination-button');
+    if (event.target.closest('.table-page-button') && !event.target.closest('.table-page-button').disabled) {
+        const button = event.target.closest('.table-page-button');
         const page = button.dataset.page;
         const panel = document.querySelector('.admin-panel');
 

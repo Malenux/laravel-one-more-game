@@ -13,7 +13,7 @@ document.addEventListener('keydown', function (event) {
 formContainer.addEventListener('click', async function (event) {
     event.preventDefault();
 
-    if (event.target.closest('.save-button')) {
+    if (event.target.closest('.save-icon')) {
         const form = document.querySelector('.form form');
         const formData = new FormData(form);
         const formDataJson = {};
@@ -84,7 +84,7 @@ formContainer.addEventListener('click', async function (event) {
         }
     }
 
-    if (event.target.closest('.clean-button')) {
+    if (event.target.closest('.clean-icon')) {
         resetForm();
     }
 
