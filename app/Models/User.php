@@ -7,20 +7,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'name',
         'email',
         'password',
-    ];
-
-    protected $guarded = [
-        'role',
     ];
 
     protected $hidden = [
@@ -34,6 +30,12 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class, 'role_user')
+                    ->withTimestamps();
     }
 
     public function games(): BelongsToMany
@@ -71,20 +73,13 @@ class User extends Authenticatable
     public function steamAccount(): ?ExternalAccount
     {
         return $this->externalAccounts()
-                    ->whereHas('platform', function ($query) {
-                        $query->where('slug', 'steam');
-                    })
+                    ->whereHas('platform', fn($query) => $query->where('slug', 'steam'))
                     ->first();
     }
 
     public function hasSteamLinked(): bool
     {
         return !is_null($this->steamAccount());
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->role === 'admin';
     }
 
     public function getStats(): array

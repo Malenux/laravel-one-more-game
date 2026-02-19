@@ -1,1 +1,3 @@
-import './bootstrap';
+import './table';
+import './message';
+import './form';
