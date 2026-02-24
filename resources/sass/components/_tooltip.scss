@@ -1,0 +1,19 @@
+.tooltip {
+    position: absolute;
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    transform: translate(-50%, -140%);
+    margin-bottom: 0.25rem;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    z-index: 100;
+
+}
+
+button:hover .tooltip {
+    opacity: 1;
+}

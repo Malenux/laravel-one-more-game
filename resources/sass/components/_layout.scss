@@ -1,0 +1,13 @@
+.body_content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.crud {
+    display: grid;
+    grid-template-columns: 35% 65%;
+    gap: 1rem;
+    padding: 0.5rem 2.5rem;
+    min-height: 80vh;
+}

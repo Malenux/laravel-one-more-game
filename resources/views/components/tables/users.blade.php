@@ -1,6 +1,6 @@
 @props(['records'])
 
-<section class="table">
+<section class="admin-table">
 
     <div class="table__header">
         <div class="table__header__box">

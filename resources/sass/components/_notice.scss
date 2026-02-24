@@ -1,0 +1,59 @@
+.notice {
+    background-color: var(--bg-surface);
+    position: fixed;
+    bottom: 3%;
+    right: 2%;
+    min-width: 16rem;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-mid), visibility var(--transition-mid);
+    z-index: 100;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+.message {
+    padding: 1rem;
+    color: var(--text-white);
+    font-size: 0.95rem;
+}
+
+.color-container {
+    position: relative;
+    width: 100%;
+    height: 0.2rem;
+    overflow: hidden;
+}
+
+.color,
+.color-time {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+.color {
+    width: 100%;
+    z-index: 0;
+}
+
+.color-time {
+    width: 0%;
+    z-index: 1;
+    filter: saturate(10%);
+    transition: width 5s linear;
+}
+
+.success {
+    background-color: var(--color-success);
+}
+
+.error {
+    background-color: var(--color-error);
+}

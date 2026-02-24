@@ -1,157 +1,173 @@
-document.addEventListener('showForm', function (event) {
-    loadFormData(event.detail.data);
-});
+const endpoint = '/admin/users'
 
-const formContainer = document.querySelector('.form');
-
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter' && event.target.tagName === 'INPUT') {
-        event.preventDefault();
-    }
-});
-
-formContainer.addEventListener('click', async function (event) {
-    event.preventDefault();
+document.addEventListener('click', async (event) => {
 
     if (event.target.closest('.save-icon')) {
-        const form = document.querySelector('.form form');
-        const formData = new FormData(form);
-        const formDataJson = {};
+        event.preventDefault()
+
+        const form = document.querySelector('.admin-form form')
+        if (!form) return
+
+        const formData = new FormData(form)
+        const formDataJson = {}
 
         for (const [key, value] of formData.entries()) {
-            formDataJson[key] = value !== '' ? value : null;
+            formDataJson[key] = value !== '' ? value : null
         }
 
-        const id = document.querySelector('[name="id"]').value;
-        const panel = document.querySelector('.admin-panel');
-
-        let endpoint;
-        if (id) {
-            endpoint = panel.dataset.updateUrl.replace('__ID__', id);
-            formDataJson._method = 'PUT';
-        } else {
-            endpoint = panel.dataset.storeUrl;
-        }
-
-        delete formDataJson.id;
+        const id = form.querySelector('[name="id"]')?.value ?? ''
+        const url = id ? `${endpoint}/${id}` : endpoint
+        const method = id ? 'PUT' : 'POST'
+        delete formDataJson.id
 
         try {
-            const response = await fetch(endpoint, {
-                method: 'POST',
+            const response = await fetch(url, {
+                method,
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'Accept': 'application/json'
+                    'X-Requested-With': 'XMLHttpRequest',
                 },
                 body: JSON.stringify(formDataJson)
-            });
+            })
 
-            if (!response.ok) {
-                throw response;
-            }
+            if (!response.ok) throw response
 
-            const data = await response.json();
+            const data = await response.json()
 
-            document.dispatchEvent(new CustomEvent('notice', {
-                detail: {
-                    message: 'Usuario guardado correctamente',
-                    type: 'success'
-                }
-            }));
+            if (data.table) document.querySelector('.table-wrapper').innerHTML = data.table
+            if (data.form) document.querySelector('.form-wrapper').innerHTML = data.form
 
-            resetForm();
-            window.location.reload();
+            dispatchNotice(data.message ?? 'Datos guardados correctamente', 'success')
 
         } catch (error) {
             if (error.status === 422) {
-                const data = await error.json();
-                showValidationErrors(data.errors);
+                const data = await error.json()
+                showValidationErrors(data.errors ?? data.message)
+                dispatchNotice('Hay errores de validación', 'error')
+            }
 
-                document.dispatchEvent(new CustomEvent('notice', {
-                    detail: {
-                        message: 'Hay errores de validación',
-                        type: 'error'
-                    }
-                }));
-            } else {
-                document.dispatchEvent(new CustomEvent('notice', {
-                    detail: {
-                        message: 'No se han podido guardar los datos',
-                        type: 'error'
-                    }
-                }));
+            if (error.status === 500) {
+                dispatchNotice('No se han podido guardar los datos', 'error')
             }
         }
     }
 
     if (event.target.closest('.clean-icon')) {
-        resetForm();
+        event.preventDefault()
+        resetForm()
     }
 
     if (event.target.closest('.tab')) {
-        const clickedTab = event.target.closest('.tab');
+        event.preventDefault()
 
-        document.querySelector('.tab.active')?.classList.remove('active');
-        clickedTab.classList.add('active');
+        const clickedTab = event.target.closest('.tab')
+        const tabName = clickedTab.dataset.tab
 
-        document.querySelector('.tab-content.active')?.classList.remove('active');
-        document.querySelector(`.tab-content[data-tab='${clickedTab.dataset.tab}']`)?.classList.add('active');
+        document.querySelector('.admin-form .tab.active')?.classList.remove('active')
+        clickedTab.classList.add('active')
+
+        document.querySelector('.admin-form .tab-content.active')?.classList.remove('active')
+        document.querySelector(`.admin-form .tab-content[data-tab="${tabName}"]`)?.classList.add('active')
     }
 
     if (event.target.closest('.close-validation-errors')) {
-        clearValidationErrors();
+        event.preventDefault()
+        closeValidationErrors()
     }
-});
 
-function showValidationErrors (errors) {
-    clearValidationErrors();
+    if (event.target.closest('.edit-button')) {
+        event.preventDefault()
 
-    const errorsContainer = document.querySelector('.validation-errors');
-    const errorsList = document.querySelector('.validation-errors ul');
-    errorsList.innerHTML = '';
+        const id = event.target.closest('.edit-button').dataset.id
 
-    Object.entries(errors).forEach(([field, messages]) => {
-        const errorMessage = document.createElement('li');
-        errorMessage.textContent = Array.isArray(messages) ? messages[0] : messages;
-        errorsList.appendChild(errorMessage);
+        try {
+            const response = await fetch(`${endpoint}/${id}/edit`, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
 
-        const input = document.querySelector(`[name="${field}"]`);
-        if (input) {
-            input.classList.add('error');
+            if (!response.ok) throw response
+
+            const data = await response.json()
+
+            if (data.form) document.querySelector('.form-wrapper').innerHTML = data.form
+
+        } catch {
+            dispatchNotice('No se han podido cargar los datos', 'error')
         }
-    });
+    }
 
-    errorsContainer.classList.add('active');
-}
+    if (event.target.closest('.delete-button')) {
+        event.preventDefault()
 
-function clearValidationErrors () {
-    const errorsContainer = document.querySelector('.validation-errors');
-    const errorsList = document.querySelector('.validation-errors ul');
+        if (!confirm('¿Estás seguro de que quieres eliminar este registro?')) return
 
-    errorsList.innerHTML = '';
-    errorsContainer?.classList.remove('active');
+        const id = event.target.closest('.delete-button').dataset.id
 
-    document.querySelectorAll('.form-element-input input.error').forEach(input => {
-        input.classList.remove('error');
-    });
-}
+        try {
+            const response = await fetch(`${endpoint}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
 
-function loadFormData (data) {
-    const form = document.querySelector('.form form');
-    form.reset();
-    clearValidationErrors();
+            if (!response.ok) throw response
 
-    Object.entries(data).forEach(([key, value]) => {
-        const input = document.querySelector(`[name="${key}"]`);
-        if (input && input.type !== 'file') {
-            input.value = value || '';
+            const data = await response.json()
+
+            if (data.table) document.querySelector('.table-wrapper').innerHTML = data.table
+            if (data.form) document.querySelector('.form-wrapper').innerHTML = data.form
+
+            dispatchNotice(data.message ?? 'Registro eliminado', 'success')
+
+        } catch {
+            dispatchNotice('No se ha podido eliminar el registro', 'error')
         }
-    });
-}
+    }
+})
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' && event.target.closest('.admin-form form')) {
+        event.preventDefault()
+    }
+})
 
 function resetForm () {
-    const form = document.querySelector('.form form');
-    form.reset();
-    document.querySelector('[name="id"]').value = '';
-    clearValidationErrors();
+    const form = document.querySelector('.admin-form form')
+    if (!form) return
+    form.reset()
+    form.querySelector('[name="id"]').value = ''
+    closeValidationErrors()
+}
+
+function showValidationErrors (errors) {
+    const wrapper = document.querySelector('.admin-form .validation-errors')
+    const list = wrapper?.querySelector('ul')
+    if (!wrapper || !list) return
+
+    list.innerHTML = ''
+
+    const items = Array.isArray(errors)
+        ? errors
+        : Object.values(errors).flat()
+
+    items.forEach(error => {
+        const li = document.createElement('li')
+        li.textContent = typeof error === 'object' ? error.message : error
+        list.appendChild(li)
+    })
+
+    wrapper.classList.add('active')
+}
+
+function closeValidationErrors () {
+    document.querySelector('.admin-form .validation-errors')?.classList.remove('active')
+}
+
+function dispatchNotice (message, type = 'success') {
+    document.dispatchEvent(new CustomEvent('notice', {
+        detail: { message, type }
+    }))
 }

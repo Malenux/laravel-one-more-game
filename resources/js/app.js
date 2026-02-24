@@ -1,3 +1,10 @@
-import './table';
-import './message';
-import './form';
+import './bootstrap';
+import './form'
+import './message'
+import './table'
+
+import Alpine from 'alpinejs';
+
+window.Alpine = Alpine;
+
+Alpine.start();

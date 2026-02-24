@@ -1,0 +1,128 @@
+.admin-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color: var(--text-primary);
+}
+
+.table {
+    &__header {
+        border-bottom: var(--border-width) solid var(--border-subtle);
+
+        &__box {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0.5rem 0;
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin: 1rem auto;
+        max-height: 75vh;
+        min-height: 75vh;
+        overflow-y: auto;
+        padding-right: 1rem;
+        scrollbar-width: thin;
+        scrollbar-color: var(--border-subtle) var(--bg-surface);
+        width: 90%;
+
+        &::-webkit-scrollbar {
+            width: 0.3rem;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: var(--bg-surface);
+            border-radius: 0.25rem;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: var(--border-subtle);
+            border-radius: 0.25rem;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: var(--border-active);
+        }
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-top: var(--border-width) solid var(--border-subtle);
+        flex-wrap: wrap;
+        gap: 0.5rem;
+
+        &-box {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.table-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.8rem 1rem;
+    background-color: var(--bg-surface);
+    border-radius: var(--radius-md);
+    border: var(--border-width) solid var(--border-subtle);
+    transition: border-color var(--transition-fast);
+
+    &:hover {
+        border-color: var(--border-active);
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 1rem;
+        align-items: flex-start;
+
+        label {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+    }
+}
+
+.element-box__upper-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.table-page {
+    &-info {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+
+    &-controls {
+        display: flex;
+        gap: 0.25rem;
+        align-items: center;
+    }
+
+    &-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.disabled svg {
+            fill: var(--border-subtle);
+        }
+
+        &:not(.disabled):hover svg {
+            fill: var(--text-primary);
+        }
+    }
+}

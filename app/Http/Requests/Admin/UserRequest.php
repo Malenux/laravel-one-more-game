@@ -24,8 +24,6 @@ class UserRequest extends FormRequest
             ],
             'password'              => 'nullable|required_without:id|min:6',
             'password_confirmation' => 'nullable|required_without:id|same:password',
-            'roles'                 => 'sometimes|array',
-            'roles.*'               => 'exists:roles,id',
         ];
     }
 
@@ -44,19 +42,6 @@ class UserRequest extends FormRequest
             'password.min'                         => 'La contraseña debe tener al menos 6 caracteres',
             'password_confirmation.required_without' => 'Añada la confirmación de la contraseña',
             'password_confirmation.same'           => 'Las contraseñas no coinciden',
-            'roles.array'                          => 'Roles inválidos',
-            'roles.*.exists'                       => 'El rol seleccionado no existe',
-        ];
-    }
-
-    public function attributes(): array
-    {
-        return [
-            'name'                  => 'Nombre',
-            'email'                 => 'Email',
-            'password'              => 'Contraseña',
-            'password_confirmation' => 'Confirmación de contraseña',
-            'roles'                 => 'Roles',
         ];
     }
 }
