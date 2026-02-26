@@ -1,7 +1,7 @@
 import './bootstrap';
-import './form'
-import './message'
-import './table'
+import './form';
+import './message';
+import './table';
 
 import Alpine from 'alpinejs';
 

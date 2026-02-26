@@ -8,6 +8,7 @@
 .table {
     &__header {
         border-bottom: var(--border-width) solid var(--border-subtle);
+        padding: 0.5rem 0;
 
         &__box {
             display: flex;
@@ -22,8 +23,8 @@
         flex-direction: column;
         gap: 1rem;
         margin: 1rem auto;
-        max-height: 75vh;
-        min-height: 75vh;
+        max-height: 73vh;
+        min-height: 73vh;
         overflow-y: auto;
         padding-right: 1rem;
         scrollbar-width: thin;
@@ -117,11 +118,11 @@
         align-items: center;
         justify-content: center;
 
-        &.disabled svg {
+        &.inactive svg {
             fill: var(--border-subtle);
         }
 
-        &:not(.disabled):hover svg {
+        &:not(.inactive):hover svg {
             fill: var(--text-primary);
         }
     }

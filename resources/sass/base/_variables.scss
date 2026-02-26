@@ -1,28 +1,32 @@
 :root {
 
-    --bg-base: hsl(0, 0%, 11%);
-    --bg-surface: hsl(0, 0%, 16%);
+    --bg-base: hsl(0, 0%, 9%);
+    --bg-surface: hsl(0, 0%, 10%);
     --bg-elevated: hsl(0, 0%, 10%);
-    --bg-input: hsl(0, 0%, 10%);
+    --bg-input: hsla(320, 64%, 33%, 0.1);
 
     --border-subtle: hsl(320, 83%, 26%);
     --border-mid: hsl(320, 64%, 33%);
     --border-active: hsl(320, 45%, 35%);
 
-    --svg-subtle: hsl(0, 0%, 88%);
-    --svg-active: hsl(0, 0%, 55%);
-
     --shadow-dark: hsla(0, 0%, 10%, 0.4);
     --shadow-middl: hsla(0, 0%, 23%, 0.4);
     --shadow-light: hsla(0, 0%, 85%, 0.4);
 
+    --svg-subtle: hsl(0, 0%, 885%);
+    --svg-active: hsl(0, 0%, 55%);
+    --svg-error: hsl(0, 100%, 50%);
+    --svg-success: hsl(120, 94%, 32%);
+
     --text-primary: hsl(0, 0%, 88%);
     --text-secondary: hsl(0, 0%, 55%);
 
-    --color-success: hsl(120, 94%, 32%);
     --color-error: hsl(0, 100%, 50%);
     --color-error-light: hsla(0, 95%, 76%, 0.80);
-    --color-error-dark: hsla(0, 95%, 76%, 0.5);
+    --color-error-dark: hsl(0, 70%, 21%);
+
+    --color-success: hsl(120, 94%, 32%);
+    --color-success-dark: hsl(120, 70%, 21%);
 
     --radius-sm: 0.25rem;
     --radius-md: 0.5rem;

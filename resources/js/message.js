@@ -1,4 +1,4 @@
-document.addEventListener('notice', function (event) {
+document.addEventListener('message', function (event) {
     showMessage(event);
 });
 

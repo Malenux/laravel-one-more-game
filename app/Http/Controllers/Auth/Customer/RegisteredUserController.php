@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
-
+namespace App\Http\Controllers\Auth\Customer;
+s
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -19,7 +19,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('auth.customer.register');
     }
 
     /**
@@ -45,6 +45,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('customer-dashboard', absolute: false));
     }
 }

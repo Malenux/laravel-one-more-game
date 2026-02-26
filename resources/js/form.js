@@ -1,173 +1,154 @@
-const endpoint = '/admin/users'
+export default (() => {
 
-document.addEventListener('click', async (event) => {
+    const formSection = document.querySelector('.admin-form');
 
-    if (event.target.closest('.save-icon')) {
-        event.preventDefault()
+    document.addEventListener("refreshForm", event => {
+        formSection.innerHTML = event.detail.form;
+    });
 
-        const form = document.querySelector('.admin-form form')
-        if (!form) return
+    formSection?.addEventListener('click', async (event) => {
 
-        const formData = new FormData(form)
-        const formDataJson = {}
+        if (event.target.closest('.save-button')) {
 
-        for (const [key, value] of formData.entries()) {
-            formDataJson[key] = value !== '' ? value : null
-        }
+            const saveButton = event.target.closest('.save-button')
+            const endpoint = saveButton.dataset.endpoint;
+            const form = document.querySelector('.form__body form');
+            const formData = new FormData(form);
 
-        const id = form.querySelector('[name="id"]')?.value ?? ''
-        const url = id ? `${endpoint}/${id}` : endpoint
-        const method = id ? 'PUT' : 'POST'
-        delete formDataJson.id
+            try {
+                const response = await fetch(endpoint, {
+                    headers: {
+                        'Accept': 'application/json',
+                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+                    },
+                    method: 'POST',
+                    body: formData
+                })
 
-        try {
-            const response = await fetch(url, {
-                method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest',
-                },
-                body: JSON.stringify(formDataJson)
-            })
-
-            if (!response.ok) throw response
-
-            const data = await response.json()
-
-            if (data.table) document.querySelector('.table-wrapper').innerHTML = data.table
-            if (data.form) document.querySelector('.form-wrapper').innerHTML = data.form
-
-            dispatchNotice(data.message ?? 'Datos guardados correctamente', 'success')
-
-        } catch (error) {
-            if (error.status === 422) {
-                const data = await error.json()
-                showValidationErrors(data.errors ?? data.message)
-                dispatchNotice('Hay errores de validación', 'error')
-            }
-
-            if (error.status === 500) {
-                dispatchNotice('No se han podido guardar los datos', 'error')
-            }
-        }
-    }
-
-    if (event.target.closest('.clean-icon')) {
-        event.preventDefault()
-        resetForm()
-    }
-
-    if (event.target.closest('.tab')) {
-        event.preventDefault()
-
-        const clickedTab = event.target.closest('.tab')
-        const tabName = clickedTab.dataset.tab
-
-        document.querySelector('.admin-form .tab.active')?.classList.remove('active')
-        clickedTab.classList.add('active')
-
-        document.querySelector('.admin-form .tab-content.active')?.classList.remove('active')
-        document.querySelector(`.admin-form .tab-content[data-tab="${tabName}"]`)?.classList.add('active')
-    }
-
-    if (event.target.closest('.close-validation-errors')) {
-        event.preventDefault()
-        closeValidationErrors()
-    }
-
-    if (event.target.closest('.edit-button')) {
-        event.preventDefault()
-
-        const id = event.target.closest('.edit-button').dataset.id
-
-        try {
-            const response = await fetch(`${endpoint}/${id}/edit`, {
-                headers: { 'X-Requested-With': 'XMLHttpRequest' }
-            })
-
-            if (!response.ok) throw response
-
-            const data = await response.json()
-
-            if (data.form) document.querySelector('.form-wrapper').innerHTML = data.form
-
-        } catch {
-            dispatchNotice('No se han podido cargar los datos', 'error')
-        }
-    }
-
-    if (event.target.closest('.delete-button')) {
-        event.preventDefault()
-
-        if (!confirm('¿Estás seguro de que quieres eliminar este registro?')) return
-
-        const id = event.target.closest('.delete-button').dataset.id
-
-        try {
-            const response = await fetch(`${endpoint}/${id}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                    'X-Requested-With': 'XMLHttpRequest',
+                if (response.status === 500 || response.status === 422) {
+                    throw response
                 }
-            })
 
-            if (!response.ok) throw response
+                if (response.status === 200) {
 
-            const data = await response.json()
+                    const json = await response.json();
 
-            if (data.table) document.querySelector('.table-wrapper').innerHTML = data.table
-            if (data.form) document.querySelector('.form-wrapper').innerHTML = data.form
+                    formSection.innerHTML = json.form;
 
-            dispatchNotice(data.message ?? 'Registro eliminado', 'success')
+                    document.dispatchEvent(new CustomEvent('refreshTable', {
+                        detail: {
+                            table: json.table,
+                        }
+                    }));
 
-        } catch {
-            dispatchNotice('No se ha podido eliminar el registro', 'error')
+                    document.dispatchEvent(new CustomEvent('message', {
+                        detail: {
+                            message: json.message,
+                            type: 'success'
+                        }
+                    }))
+                }
+
+            } catch (error) {
+
+                if (error.status === 422) {
+
+                    const json = await error.json();
+
+                    document.dispatchEvent(new CustomEvent('showformValidations', {
+                        detail: {
+                            formValidation: form.previousElementSibling,
+                            errors: json.errors
+                        }
+                    }))
+
+                    document.dispatchEvent(new CustomEvent('message', {
+                        detail: {
+                            message: json.message,
+                            type: 'error'
+                        }
+                    }))
+                }
+
+                if (error.status === 500) {
+
+                    const json = await error.json();
+
+                    document.dispatchEvent(new CustomEvent('message', {
+                        detail: {
+                            message: json.message,
+                            type: 'error'
+                        }
+                    }))
+                }
+            }
         }
-    }
-})
 
-document.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter' && event.target.closest('.admin-form form')) {
-        event.preventDefault()
-    }
-})
+        if (event.target.closest('.clean-button')) {
 
-function resetForm () {
-    const form = document.querySelector('.admin-form form')
-    if (!form) return
-    form.reset()
-    form.querySelector('[name="id"]').value = ''
-    closeValidationErrors()
-}
+            const cleanButton = event.target.closest('.clean-button')
+            const endpoint = cleanButton.dataset.endpoint;
 
-function showValidationErrors (errors) {
-    const wrapper = document.querySelector('.admin-form .validation-errors')
-    const list = wrapper?.querySelector('ul')
-    if (!wrapper || !list) return
+            try {
+                const response = await fetch(endpoint, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    method: 'GET',
+                })
 
-    list.innerHTML = ''
+                if (response.status === 500) {
+                    throw response
+                }
 
-    const items = Array.isArray(errors)
-        ? errors
-        : Object.values(errors).flat()
+                if (response.status === 200) {
 
-    items.forEach(error => {
-        const li = document.createElement('li')
-        li.textContent = typeof error === 'object' ? error.message : error
-        list.appendChild(li)
-    })
+                    const json = await response.json();
 
-    wrapper.classList.add('active')
-}
+                    console.log(json.form);
 
-function closeValidationErrors () {
-    document.querySelector('.admin-form .validation-errors')?.classList.remove('active')
-}
+                    document.dispatchEvent(new CustomEvent('refreshForm', {
+                        detail: {
+                            form: json.form,
+                        }
+                    }));
+                }
 
-function dispatchNotice (message, type = 'success') {
-    document.dispatchEvent(new CustomEvent('notice', {
-        detail: { message, type }
-    }))
-}
+            } catch (error) {
+                document.dispatchEvent(new CustomEvent('message', {
+                    detail: {
+                        message: 'La acción no se pudo completar por un fallo en el servidor.',
+                        type: 'error'
+                    }
+                }))
+            }
+        }
+
+        if (event.target.closest('.tab')) {
+
+            const tab = event.target.closest('.tab')
+            const tabName = tab.dataset.tab;
+
+            const tabContent = document.querySelector(`.tab-content[data-tab="${tabName}"]`);
+            const activeTab = document.querySelector('.tab.active');
+            const activeTabContent = document.querySelector('.tab-content.active');
+
+            activeTab.classList.remove('active');
+            activeTabContent.classList.remove('active');
+
+            tab.classList.add('active');
+            tabContent.classList.add('active');
+        }
+    });
+
+    formSection?.addEventListener('input', async (event) => {
+
+        if (event.target.closest('[type="range')) {
+
+            const inputRange = event.target.closest('[type="range');
+            const rangeValue = inputRange.parentElement.querySelector('.range-value');
+
+            rangeValue.innerText = inputRange.value
+        }
+    });
+})();

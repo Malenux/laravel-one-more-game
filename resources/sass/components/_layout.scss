@@ -4,10 +4,16 @@
     gap: 1rem;
 }
 
+h1 {
+    padding-top: 0.5rem;
+    color: var(--text-primary);
+    text-align: center;
+}
+
 .crud {
     display: grid;
     grid-template-columns: 35% 65%;
     gap: 1rem;
-    padding: 0.5rem 2.5rem;
+    padding: 0 2.5rem;
     min-height: 80vh;
 }

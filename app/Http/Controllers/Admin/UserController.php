@@ -11,9 +11,7 @@ use App\Models\User;
 class UserController extends Controller
 {
   
-  public function __construct(private User $user){
-    
-  }
+  public function __construct(private User $user){}
   
   public function index()
   {
@@ -26,8 +24,8 @@ class UserController extends Controller
       if(request()->ajax()) {
             
         return response()->json([
-          'table' => view('components.admin-table', ['records' => $users])->render(),
-          'form' => view('components.admin-form', ['record' => $this->user])->render()
+          'table' => view('components.tables.users', ['records' => $users])->render(),
+          'form' => view('components.forms.users', ['record' => $this->user])->render()
         ], 200); 
 
       }else{
@@ -41,7 +39,7 @@ class UserController extends Controller
     }
     catch(\Exception $e){
       return response()->json([
-        'message' => \Lang::get('admin/notification.error'),
+        'message' => \Lang::get('admin/message.error'),
       ], 500);
     }
   }
@@ -51,12 +49,12 @@ class UserController extends Controller
     try {
       if (request()->ajax()) {
         return response()->json([
-          'form' => view('components.admin-form', ['record' => $this->user])->render(),
+          'form' => view('components.forms.users', ['record' => $this->user])->render(),
         ], 200);
       }
     } catch (\Exception $e) {
       return response()->json([
-          'message' =>  \Lang::get('admin/notification.error'),
+          'message' =>  \Lang::get('admin/message.error'),
       ], 500);
     }
   }
@@ -82,14 +80,14 @@ class UserController extends Controller
       ->paginate(10);
 
       if ($request->filled('id')){
-        $message = \Lang::get('admin/notification.update');
+        $message = \Lang::get('admin/message.update');
       }else{
-        $message = \Lang::get('admin/notification.create');
+        $message = \Lang::get('admin/message.create');
       }
       
       return response()->json([
-        'table' => view('components.admin-table', ['records' => $users])->render(),
-        'form' => view('components.admin-form', ['record' => $this->user])->render(),
+        'table' => view('components.tables.users', ['records' => $users])->render(),
+        'form' => view('components.forms.users', ['record' => $this->user])->render(),
         'message' => $message,
       ], 200);
     }
@@ -104,12 +102,12 @@ class UserController extends Controller
   {
     try{
       return response()->json([
-        'form' => view('components.admin-form', ['record' => $user])->render(),
+        'form' => view('components.forms.users', ['record' => $user])->render(),
       ], 200);
     }
     catch(\Exception $e){
       return response()->json([
-        'message' => \Lang::get('admin/notification.error'),
+        'message' => \Lang::get('admin/message.error'),
       ], 500);
     }
   }
@@ -123,17 +121,17 @@ class UserController extends Controller
       ->orderBy('created_at', 'desc')
       ->paginate(10);
 
-      $message = \Lang::get('admin/notification.destroy');
+      $message = \Lang::get('admin/message.destroy');
       
       return response()->json([
-        'table' => view('components.admin-table', ['records' => $users])->render(),
-        'form' => view('components.admin-form', ['record' => $this->user])->render(),
+        'table' => view('components.tables.users', ['records' => $users])->render(),
+        'form' => view('components.forms.users', ['record' => $this->user])->render(),
         'message' => $message,
       ], 200);
     }
     catch(\Exception $e){
       return response()->json([
-        'message' => \Lang::get('admin/notification.error'),
+        'message' => \Lang::get('admin/message.error'),
       ], 500);
     }
   }

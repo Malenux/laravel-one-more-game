@@ -27,6 +27,7 @@
         </main>
 
         <x-message />
+        <x-modal />
 
     </body>
 </html>

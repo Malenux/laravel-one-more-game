@@ -7,23 +7,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin'], function () {
-    Route::resource('users', 'App\Http\Controllers\Admin\UserController', [
-        'parameters' => ['users' => 'user'],
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+
+    Route::get('/panel', function () {
+        return view('admin.dashboard.index');
+    })->name('dashboard');
+
+    Route::resource('usuarios', 'App\Http\Controllers\Admin\UserController', [
+        'parameters' => ['usuarios' => 'user'],
         'names' => [
             'index'   => 'users',
             'create'  => 'users_create',
             'store'   => 'users_store',
             'edit'    => 'users_edit',
-            'update'  => 'users_update',
             'destroy' => 'users_destroy',
         ]
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group(['prefix' => 'cuenta', 'middleware' => 'auth'], function () {
+    Route::get('/perfil', function () {
+        return view('customer.dashboard.index');
+    })->name('customer-dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

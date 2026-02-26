@@ -15,7 +15,7 @@
             padding: 0.5rem 0;
         }
 
-        &-icons {
+        &-buttons {
             display: flex;
             gap: 0.8rem;
         }
@@ -23,8 +23,8 @@
 
     &__body {
         padding: 1rem 0;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(25%, 1fr));
+        display: flex;
+        flex-direction: column;
         gap: 1rem;
     }
 }
