@@ -27,7 +27,7 @@
         </main>
 
         <x-message />
-        <x-modal />
+        <x-modal-delete />
 
     </body>
 </html>

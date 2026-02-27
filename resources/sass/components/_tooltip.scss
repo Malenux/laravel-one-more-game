@@ -1,15 +1,17 @@
+@use "../base/variables-panel-admin" as *;
+
 .tooltip {
     position: absolute;
     background-color: hsla(0, 0%, 13%, 0.8);
-    color: var(--text-primary);
+    color: $text-primary;
     padding: 0.25rem 0.5rem;
-    border-radius: var(--radius-sm);
+    border-radius: $radius-sm;
     font-size: 0.875rem;
     white-space: nowrap;
     transform: translate(-50%, -140%);
     margin-bottom: 0.25rem;
     opacity: 0;
-    transition: opacity var(--transition-fast);
+    transition: opacity $transition-fast;
     z-index: 100;
 
 }

@@ -1,12 +1,14 @@
+@use "../base/variables-panel-admin" as *;
+
 .form {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    border-radius: var(--radius-md);
-    color: var(--text-primary);
+    border-radius: $radius-md;
+    color: $text-primary;
 
     &__header {
-        border-bottom: var(--border-width) solid var(--border-subtle);
+        border-bottom: $border-width solid $border-subtle;
 
         &-box {
             display: flex;
@@ -39,20 +41,20 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 0;
-    border-radius: var(--radius-lg);
+    border-radius: $radius-lg;
 
     button {
-        background-color: var(--bg-surface);
+        background-color: $bg-surface;
         padding: 0.2rem 0.5rem;
-        color: var(--text-primary);
-        border: var(--border-width) solid var(--border-mid);
-        border-radius: var(--radius-md);
+        color: $text-primary;
+        border: $border-width solid $border-mid;
+        border-radius: $radius-md;
         font-size: 1rem;
     }
 
     &:hover button,
     &.active button {
-        border-color: var(--border-active);
+        border-color: $border-active;
     }
 }
 
@@ -74,35 +76,35 @@
 
 .form-title span {
     font-size: 1rem;
-    color: var(--text-primary);
+    color: $text-primary;
 }
 
 .form-element-input {
     input {
         width: 100%;
         padding: 0.5rem;
-        border-radius: var(--radius-sm);
-        border: var(--border-width) solid var(--border-subtle);
-        background-color: var(--bg-input);
-        color: var(--text-primary);
-        transition: outline var(--transition-fast);
+        border-radius: $radius-sm;
+        border: $border-width solid $border-subtle;
+        background-color: $bg-input;
+        color: $text-primary;
+        transition: outline $transition-fast;
 
         &:focus {
-            outline: var(--border-width) solid var(--border-active);
+            outline: $border-width solid $border-active;
         }
 
         &.error {
-            border-color: var(--color-error-light);
+            border-color: $color-error-light;
         }
     }
 }
 
 .validation-errors {
     display: none;
-    color: var(--color-error-light);
+    color: $color-error-light;
     padding: 1rem;
-    border: var(--border-width) solid hsl(0, 95%, 76%);
-    border-radius: var(--radius-md);
+    border: $border-width solid hsl(0, 95%, 76%);
+    border-radius: $radius-md;
     position: relative;
 
     &.active {

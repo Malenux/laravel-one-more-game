@@ -1,0 +1,108 @@
+@use "../base/variables-panel-admin" as *;
+
+h2,
+p {
+    text-align: center;
+    color: $text-primary;
+}
+
+span {
+    color: $color-error-light;
+}
+
+.delete-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: hsla(0, 0%, 0%, 0.50);
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity $transition-mid, visibility $transition-mid;
+
+    &.active {
+        visibility: visible;
+        opacity: 1;
+        z-index: 999;
+    }
+
+    &__box {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        width: 25rem;
+        background-color: $bg-surface;
+        border: $border-width solid $border-mid;
+        border-radius: $radius-md;
+        padding: 2rem;
+        z-index: 0;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity $transition-mid, visibility $transition-mid;
+
+        &.active {
+            visibility: visible;
+            opacity: 1;
+            z-index: 1000;
+        }
+    }
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+
+    &__description {
+        text-align: center;
+    }
+
+    &__record {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    &__actions {
+        justify-content: space-around;
+        align-items: center;
+        display: flex;
+    }
+
+    &__btn {
+        background-color: $bg-base;
+        border: $border-width solid $border-mid;
+        border-radius: $radius-sm;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        padding: 0.4rem;
+        transition: border-color $transition-fast;
+
+        svg {
+            width: 2rem;
+            height: 2rem;
+            fill: $svg-delete;
+            display: block;
+            transition: fill $transition-fast;
+        }
+
+        &--confirm {
+            svg:hover {
+                fill: $color-confirm;
+            }
+        }
+
+        &--cancel {
+            svg:hover {
+                fill: $color-error-light;
+            }
+        }
+    }
+
+}

@@ -1,13 +1,15 @@
+@use "../base/variables-panel-admin" as *;
+
 svg {
     background: transparent;
     width: 1.8rem;
     height: 1.8rem;
-    fill: var(--svg-subtle);
-    transition: fill var(--transition-mid);
+    fill: $svg-subtle;
+    transition: fill $transition-mid;
     padding: 0;
     margin: 0;
 
     &:hover {
-        fill: var(--svg-active);
+        fill: $svg-active;
     }
 }

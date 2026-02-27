@@ -34,22 +34,10 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
-
-        Schema::create('role_user', function (Blueprint $table){
-            $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('role_id')->constrained()->cascadeOnDelete();
-            
-            $table->timestamps();
-            $table->softDeletes();
-            
-            $table->unique(['user_id', 'role_id']);
-        });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('role_user');
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('users');

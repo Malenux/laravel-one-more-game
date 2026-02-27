@@ -2,8 +2,16 @@ export default (() => {
 
     const formSection = document.querySelector('.admin-form');
 
+    formSection?.querySelector('form')?.addEventListener('submit', event => {
+        event.preventDefault();
+    });
+
     document.addEventListener("refreshForm", event => {
         formSection.innerHTML = event.detail.form;
+
+        formSection.querySelector('form')?.addEventListener('submit', event => {
+            event.preventDefault();
+        });
     });
 
     formSection?.addEventListener('click', async (event) => {
@@ -34,6 +42,10 @@ export default (() => {
                     const json = await response.json();
 
                     formSection.innerHTML = json.form;
+
+                    formSection.querySelector('form')?.addEventListener('submit', event => {
+                        event.preventDefault();
+                    });
 
                     document.dispatchEvent(new CustomEvent('refreshTable', {
                         detail: {
@@ -104,8 +116,6 @@ export default (() => {
                 if (response.status === 200) {
 
                     const json = await response.json();
-
-                    console.log(json.form);
 
                     document.dispatchEvent(new CustomEvent('refreshForm', {
                         detail: {

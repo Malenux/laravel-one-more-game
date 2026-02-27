@@ -1,13 +1,15 @@
+@use "../base/variables-panel-admin" as *;
+
 .admin-table {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    color: var(--text-primary);
+    color: $text-primary;
 }
 
 .table {
     &__header {
-        border-bottom: var(--border-width) solid var(--border-subtle);
+        border-bottom: $border-width solid $border-subtle;
         padding: 0.5rem 0;
 
         &__box {
@@ -28,7 +30,7 @@
         overflow-y: auto;
         padding-right: 1rem;
         scrollbar-width: thin;
-        scrollbar-color: var(--border-subtle) var(--bg-surface);
+        scrollbar-color: $border-subtle $bg-surface;
         width: 90%;
 
         &::-webkit-scrollbar {
@@ -36,17 +38,17 @@
         }
 
         &::-webkit-scrollbar-track {
-            background: var(--bg-surface);
+            background: $bg-surface;
             border-radius: 0.25rem;
         }
 
         &::-webkit-scrollbar-thumb {
-            background: var(--border-subtle);
+            background: $border-subtle;
             border-radius: 0.25rem;
         }
 
         &::-webkit-scrollbar-thumb:hover {
-            background: var(--border-active);
+            background: $border-active;
         }
     }
 
@@ -55,7 +57,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 0.5rem 0;
-        border-top: var(--border-width) solid var(--border-subtle);
+        border-top: $border-width solid $border-subtle;
         flex-wrap: wrap;
         gap: 0.5rem;
 
@@ -72,13 +74,13 @@
     justify-content: space-between;
     gap: 1rem;
     padding: 0.8rem 1rem;
-    background-color: var(--bg-surface);
-    border-radius: var(--radius-md);
-    border: var(--border-width) solid var(--border-subtle);
-    transition: border-color var(--transition-fast);
+    background-color: $bg-surface;
+    border-radius: $radius-md;
+    border: $border-width solid $border-subtle;
+    transition: border-color $transition-fast;
 
     &:hover {
-        border-color: var(--border-active);
+        border-color: $border-active;
     }
 
     &__content {
@@ -89,7 +91,7 @@
 
         label {
             font-size: 0.9rem;
-            color: var(--text-primary);
+            color: $text-primary;
         }
     }
 }
@@ -104,7 +106,7 @@
 .table-page {
     &-info {
         font-size: 0.85rem;
-        color: var(--text-muted);
+        color: $text-secondary;
     }
 
     &-controls {
@@ -119,11 +121,11 @@
         justify-content: center;
 
         &.inactive svg {
-            fill: var(--border-subtle);
+            fill: $border-subtle;
         }
 
         &:not(.inactive):hover svg {
-            fill: var(--text-primary);
+            fill: $text-primary;
         }
     }
 }

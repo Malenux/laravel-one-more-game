@@ -2,7 +2,7 @@
 //          BASE STYLES
 // ------------------------------
 @use "base/reset";
-@use "base/variables";
+@use "base/variables-panel-admin";
 
 // ------------------------------
 //       COMPONENTS STYLES
@@ -10,7 +10,7 @@
 @use "components/form";
 @use "components/layout";
 @use "components/message";
-@use "components/modal";
+@use "components/modal-delete";
 @use "components/svg";
 @use "components/table";
 @use "components/tooltip";
