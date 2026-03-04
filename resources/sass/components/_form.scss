@@ -5,7 +5,7 @@
     flex-direction: column;
     gap: 0.5rem;
     border-radius: $radius-md;
-    color: $text-primary;
+    color: $text-white;
 
     &__header {
         border-bottom: $border-width solid $border-subtle;
@@ -46,7 +46,7 @@
     button {
         background-color: $bg-surface;
         padding: 0.2rem 0.5rem;
-        color: $text-primary;
+        color: $text-white;
         border: $border-width solid $border-mid;
         border-radius: $radius-md;
         font-size: 1rem;
@@ -76,7 +76,7 @@
 
 .form-title span {
     font-size: 1rem;
-    color: $text-primary;
+    color: $text-white;
 }
 
 .form-element-input {
@@ -86,7 +86,7 @@
         border-radius: $radius-sm;
         border: $border-width solid $border-subtle;
         background-color: $bg-input;
-        color: $text-primary;
+        color: $text-white;
         transition: outline $transition-fast;
 
         &:focus {

@@ -7,20 +7,20 @@ use App\Http\Controllers\Auth\Customer\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\Customer\NewPasswordController;
 use App\Http\Controllers\Auth\Customer\PasswordController;
 use App\Http\Controllers\Auth\Customer\PasswordResetLinkController;
-use App\Http\Controllers\Auth\Customer\RegisteredUserController;
+use App\Http\Controllers\Auth\Customer\RegisteredCustomerController;
 use App\Http\Controllers\Auth\Customer\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('customer-register', [RegisteredUserController::class, 'create'])
-        ->name('customer-register');
+    Route::get('registro', [RegisteredCustomerController::class, 'create'])
+        ->name('customer.register');
 
-    Route::post('customer-register', [RegisteredUserController::class, 'store']);
+    Route::post('registro', [RegisteredCustomerController::class, 'store']);
 
-    Route::get('customer-login', [AuthenticatedSessionController::class, 'create'])
-        ->name('customer-login');
+    Route::get('/cliente/login', [AuthenticatedSessionController::class, 'create'])
+        ->name('customer.login');
 
-    Route::post('customer-login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('/cliente/login', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('customer-forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('customer.password.request');

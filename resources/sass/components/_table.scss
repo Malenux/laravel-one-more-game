@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    color: $text-primary;
+    color: $text-white;
 }
 
 .table {
@@ -25,8 +25,8 @@
         flex-direction: column;
         gap: 1rem;
         margin: 1rem auto;
-        max-height: 73vh;
-        min-height: 73vh;
+        max-height: 70vh;
+        min-height: 70vh;
         overflow-y: auto;
         padding-right: 1rem;
         scrollbar-width: thin;
@@ -91,7 +91,7 @@
 
         label {
             font-size: 0.9rem;
-            color: $text-primary;
+            color: $text-white;
         }
     }
 }
@@ -106,7 +106,7 @@
 .table-page {
     &-info {
         font-size: 0.85rem;
-        color: $text-secondary;
+        color: $text-grey;
     }
 
     &-controls {
@@ -125,7 +125,7 @@
         }
 
         &:not(.inactive):hover svg {
-            fill: $text-primary;
+            fill: $text-white;
         }
     }
 }

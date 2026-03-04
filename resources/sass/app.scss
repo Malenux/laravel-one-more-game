@@ -2,11 +2,14 @@
 //          BASE STYLES
 // ------------------------------
 @use "base/reset";
+@use "base/variables-auth";
 @use "base/variables-panel-admin";
 
 // ------------------------------
 //       COMPONENTS STYLES
 // ------------------------------
+@use "components/customer-login";
+@use "components/customer-register";
 @use "components/form";
 @use "components/layout";
 @use "components/message";

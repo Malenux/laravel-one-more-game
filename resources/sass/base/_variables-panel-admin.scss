@@ -5,7 +5,7 @@ $bg-input: hsla(320, 64%, 33%, 0.1);
 
 $border-subtle: hsl(320, 83%, 26%);
 $border-mid: hsl(320, 64%, 33%);
-$border-active: hsl(320, 45%, 35%);
+$border-active: hsl(320, 97%, 23%);
 
 $radius-md: 0.5rem;
 
@@ -18,9 +18,8 @@ $svg-active: hsl(0, 0%, 55%);
 $svg-error: hsl(0, 100%, 50%);
 $svg-success: hsl(120, 94%, 32%);
 
-$text-primary: hsl(0, 0%, 88%);
 $text-white: hsl(0, 0%, 100%);
-$text-secondary: hsl(0, 0%, 55%);
+$text-grey: hsl(0, 0%, 55%);
 
 $color-error: hsl(0, 100%, 50%);
 $color-error-light: hsla(0, 95%, 76%, 0.80);
@@ -43,3 +42,8 @@ $transition-mid: 0.3s ease;
 $bg-delete-btn: hsl(0, 0%, 22%);
 $border-delete: hsl(0, 0%, 22%);
 $svg-delete: hsla(0, 0%, 87.8%, 0.50);
+
+
+body {
+    background-color: $bg-base;
+}

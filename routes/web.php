@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'], function () {
 
     Route::get('/panel', function () {
         return view('admin.dashboard.index');
@@ -23,15 +23,26 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
             'destroy' => 'users_destroy',
         ]
     ]);
+
+    Route::resource('clientes', 'App\Http\Controllers\Admin\CustomerController', [
+        'parameters' => ['clientes' => 'customer'],
+        'names' => [
+            'index'   => 'customers',
+            'create'  => 'customers_create',
+            'store'   => 'customers_store',
+            'edit'    => 'customers_edit',
+            'destroy' => 'customers_destroy',
+        ]
+    ]);
 });
 
-Route::group(['prefix' => 'cuenta', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'cuenta', 'middleware' => 'auth:customer'], function () {
     Route::get('/perfil', function () {
         return view('customer.dashboard.index');
     })->name('customer-dashboard');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:web')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

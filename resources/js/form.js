@@ -153,12 +153,12 @@ export default (() => {
 
     formSection?.addEventListener('input', async (event) => {
 
-        if (event.target.closest('[type="range')) {
+        if (event.target.closest('[type="range"]')) {
 
-            const inputRange = event.target.closest('[type="range');
+            const inputRange = event.target.closest('[type="range"]');
             const rangeValue = inputRange.parentElement.querySelector('.range-value');
 
-            rangeValue.innerText = inputRange.value
+            rangeValue.innerText = inputRange.value;
         }
     });
 })();
