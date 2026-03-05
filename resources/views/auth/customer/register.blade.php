@@ -13,72 +13,79 @@
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body>
+<body class="customer-auth">
     <main class="customer-register">
 
-        <section class="register-header">
+        <section class="customer-auth-header">
             <h1>Registrarse</h1>
             <h2>Cliente</h2>
         </section>
 
-        <section class="register-body">
-            <form method="POST" action="{{ route('customer.register') }}" class="register-form">
+        <section class="customer-auth-body">
+            <form method="POST" action="{{ route('customer.register') }}" class="customer-auth-form">
                 @csrf
 
-                <div class="register-form__body">
+                <div class="customer-auth-form__body">
 
-                    <label for="name" class="register-form__label">Nombre</label>
-                    <input type="text" class="register-form__input" 
-                        id="name" name="name" 
-                        placeholder="Nombre" 
-                        autocomplete="name" 
+                    <label for="name" class="customer-auth-form__label">Nombre</label>
+                    <input type="text" class="customer-auth-form__input"
+                        id="name" name="name"
+                        placeholder="Nombre"
+                        autocomplete="name"
                         required
                     >
 
-                    <label for="email" class="register-form__label">Email</label>
-                    <input type="email" class="register-form__input" 
-                        id="email" name="email" 
-                        placeholder="Email" 
-                        autocomplete="email" 
+                    <label for="email" class="customer-auth-form__label">Email</label>
+                    <input type="email" class="customer-auth-form__input"
+                        id="email" name="email"
+                        placeholder="Email"
+                        autocomplete="email"
                         required
                     >
 
-                    <label for="password" class="register-form__label">Contraseña</label>
-                    <input type="password" class="register-form__input" 
-                        id="password" name="password" 
-                        placeholder="Contraseña" 
-                        autocomplete="new-password" 
+                    <label for="password" class="customer-auth-form__label">Contraseña</label>
+                    <input type="password" class="customer-auth-form__input"
+                        id="password" name="password"
+                        placeholder="Contraseña"
+                        autocomplete="new-password"
                         required
                     >
 
-                    <label for="password_confirmation" class="register-form__label">Confirmación de contraseña</label>
-                    <input type="password" class="register-form__input" 
-                        id="password_confirmation" name="password_confirmation" 
-                        placeholder="Confirmación de contraseña" 
-                        autocomplete="confirm-password" 
+                    <label for="password_confirmation" class="customer-auth-form__label">Confirmación de contraseña</label>
+                    <input type="password" class="customer-auth-form__input"
+                        id="password_confirmation" name="password_confirmation"
+                        placeholder="Confirmación de contraseña"
+                        autocomplete="new-password"
                         required
                     >
+
                 </div>
 
-                <div class="register-form__error-list">
-                    <ul></ul>
-                </div>
+                @if ($errors->any())
+                    <div class="customer-auth-form__error-list">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
-                <div class="register-form__footer">
-                    <button type="button" class="register-form__button--login">
+                <div class="customer-auth-form__footer">
+                    <button type="button" class="customer-auth-form__button--secondary">
                         <a href="{{ route('customer.login') }}">Iniciar sesión</a>
                     </button>
 
-                    <button type="submit" 
-                        class="register-form__button--register"
+                    <button type="submit"
+                        class="customer-auth-form__button--primary"
                         data-endpoint="{{ route('customer.register') }}">
                         Registrarse
-                    </button>    
+                    </button>
                 </div>
 
             </form>
         </section>
-        
+
     </main>
 </body>
 </html>

@@ -21,7 +21,7 @@ export default (() => {
             deleteModal.classList.remove('active');
             deleteModalBox.classList.remove('active');
 
-            document.dispatchEvent(new CustomEvent('openMessage', {
+            document.dispatchEvent(new CustomEvent('message', {
                 detail: {
                     message: 'Acción cancelada',
                     type: 'error'
@@ -46,7 +46,7 @@ export default (() => {
 
                 const data = await response.json();
 
-                document.dispatchEvent(new CustomEvent('openMessage', {
+                document.dispatchEvent(new CustomEvent('message', {
                     detail: {
                         message: data.message,
                         type: 'success'
@@ -61,9 +61,9 @@ export default (() => {
 
             } catch (error) {
 
-                document.dispatchEvent(new CustomEvent('openMessage', {
+                document.dispatchEvent(new CustomEvent('message', {
                     detail: {
-                        message: 'Ocurrió un error inesperado',
+                        message: error.message,
                         type: 'error'
                     }
                 }));

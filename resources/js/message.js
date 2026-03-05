@@ -1,3 +1,5 @@
+let messageTimeout = null;
+
 document.addEventListener('message', function (event) {
     showMessage(event);
 });
@@ -29,9 +31,12 @@ function showMessage (event) {
     const messageElement = document.querySelector('.notice');
     messageElement.classList.add('active');
 
-    setTimeout(() => {
+    if (messageTimeout) clearTimeout(messageTimeout);
+
+    messageTimeout = setTimeout(() => {
         messageElement.classList.remove('active');
         colorTimeElement.style.transition = 'none';
         colorTimeElement.style.width = '0%';
+        messageTimeout = null;
     }, 5000);
 }

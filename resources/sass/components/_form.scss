@@ -5,10 +5,10 @@
     flex-direction: column;
     gap: 0.5rem;
     border-radius: $radius-md;
-    color: $text-white;
+    color: $text-primary;
 
     &__header {
-        border-bottom: $border-width solid $border-subtle;
+        border-bottom: $border-width solid $border-dim;
 
         &-box {
             display: flex;
@@ -44,17 +44,19 @@
     border-radius: $radius-lg;
 
     button {
-        background-color: $bg-surface;
+        background-color: $bg-raised;
         padding: 0.2rem 0.5rem;
-        color: $text-white;
+        color: $text-primary;
         border: $border-width solid $border-mid;
         border-radius: $radius-md;
         font-size: 1rem;
+        transition: border-color $transition-fast, color $transition-fast;
     }
 
     &:hover button,
     &.active button {
-        border-color: $border-active;
+        border-color: $border-glow;
+        color: $accent;
     }
 }
 
@@ -76,7 +78,7 @@
 
 .form-title span {
     font-size: 1rem;
-    color: $text-white;
+    color: $text-primary;
 }
 
 .form-element-input {
@@ -84,27 +86,30 @@
         width: 100%;
         padding: 0.5rem;
         border-radius: $radius-sm;
-        border: $border-width solid $border-subtle;
+        border: $border-width solid $border-dim;
         background-color: $bg-input;
-        color: $text-white;
-        transition: outline $transition-fast;
+        color: $text-primary;
+        transition: border-color $transition-fast, box-shadow $transition-fast;
 
         &:focus {
-            outline: $border-width solid $border-active;
+            outline: none;
+            border-color: $border-glow;
+            box-shadow: 0 0 0 3px $accent-glow;
         }
 
         &.error {
-            border-color: $color-error-light;
+            border-color: $state-error-light;
         }
     }
 }
 
 .validation-errors {
     display: none;
-    color: $color-error-light;
+    color: $state-error-light;
     padding: 1rem;
-    border: $border-width solid hsl(0, 95%, 76%);
+    border: $border-width solid $state-error;
     border-radius: $radius-md;
+    background-color: $state-error-dark;
     position: relative;
 
     &.active {
@@ -126,10 +131,10 @@
 
 .close-validation-errors {
     svg {
-        fill: hsla(0, 95%, 76%, 0.8);
+        fill: hsla(0, 90%, 72%, 0.8);
 
         &:hover {
-            fill: hsla(0, 95%, 76%, 0.5);
+            fill: hsla(0, 90%, 72%, 0.5);
         }
     }
 }

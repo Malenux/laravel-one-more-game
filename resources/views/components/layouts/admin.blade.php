@@ -14,7 +14,7 @@
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     </head>
 
-    <body>
+    <body class="admin-panel">
     
         <x-header>
             <x-slot name="title">

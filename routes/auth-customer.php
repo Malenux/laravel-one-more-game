@@ -12,10 +12,10 @@ use App\Http\Controllers\Auth\Customer\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('registro', [RegisteredCustomerController::class, 'create'])
+    Route::get('/cliente/registro', [RegisteredCustomerController::class, 'create'])
         ->name('customer.register');
 
-    Route::post('registro', [RegisteredCustomerController::class, 'store']);
+    Route::post('/cliente/registro', [RegisteredCustomerController::class, 'store']);
 
     Route::get('/cliente/login', [AuthenticatedSessionController::class, 'create'])
         ->name('customer.login');

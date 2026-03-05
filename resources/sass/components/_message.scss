@@ -1,7 +1,8 @@
 @use "../base/variables-panel-admin" as *;
 
 .notice {
-    background-color: $bg-surface;
+    background-color: $bg-raised;
+    border: $border-width solid $border-mid;
     position: fixed;
     bottom: 3%;
     right: 2%;
@@ -12,6 +13,7 @@
     visibility: hidden;
     transition: opacity $transition-mid, visibility $transition-mid;
     z-index: 100;
+    box-shadow: 0 8px 32px $shadow-void;
 
     &.active {
         opacity: 1;
@@ -21,7 +23,7 @@
 
 .message {
     padding: 1rem;
-    color: $text-white;
+    color: $text-primary;
     font-size: 0.95rem;
 }
 
@@ -53,9 +55,9 @@
 }
 
 .success {
-    background-color: $color-success;
+    background-color: $state-success;
 }
 
 .error {
-    background-color: $color-error;
+    background-color: $state-error;
 }

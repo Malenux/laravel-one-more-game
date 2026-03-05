@@ -1,11 +1,50 @@
-$obsidian-900: hsl(0, 0%, 5%);
-$obsidian-800: hsl(0, 0%, 10%);
-$obsidian-700: hsl(0, 0%, 15%);
-$obsidian-600: hsl(0, 0%, 20%);
-$obsidian-400: hsl(0, 0%, 40%);
-$obsidian-200: hsl(0, 0%, 60%);
-$obsidian-100: hsl(0, 0%, 80%);
-$accent: hsl(320, 97%, 23%);
-$accent-hover: hsla(320, 97%, 23%, 0.479);
+//  CUSTOMER AUTH
 
-$color-error: hsl(0, 80%, 57%);
+// ── Fondos ──────────────────────────────────
+$surface-void: hsl(0, 0%, 5%);
+$surface-deep: hsl(0, 0%, 9%);
+$surface-raised: hsl(0, 0%, 13%);
+$surface-input: hsl(0, 0%, 17%);
+
+// ── Bordes ──────────────────────────────────
+$border-dim: hsl(0, 0%, 20%);
+$border-mid: hsl(0, 0%, 30%);
+$border-glow: hsl(320, 80%, 55%);
+
+// ── Tipografía ──────────────────────────────
+$text-primary: hsl(0, 0%, 90%);
+$text-secondary: hsl(0, 0%, 62%);
+$text-muted: hsl(0, 0%, 40%);
+
+// ── Acento principal ───────
+$accent: hsl(320, 85%, 42%);
+$accent-hover: hsl(320, 85%, 34%);
+$accent-glow: hsla(320, 85%, 55%, 0.2);
+$accent-dim: hsla(320, 85%, 55%, 0.12);
+
+// ── Estado de error ─────────────────────────
+$state-error: hsl(0, 80%, 57%);
+$state-error-dim: hsla(0, 80%, 57%, 0.12);
+
+// ── Sombras ─────────────────────────────────
+$shadow-void: hsla(0, 0%, 0%, 0.6);
+$shadow-card: hsla(0, 0%, 0%, 0.4);
+
+// ── Transiciones ────────────────────────────
+$transition-fast: 0.18s ease;
+$transition-mid: 0.3s ease;
+
+// ── Bordes redondeados ──────────────────────
+$radius-sm: 0.3rem;
+$radius-md: 0.5rem;
+$radius-lg: 0.75rem;
+
+// ── Border width ────────────────────────────
+$border-width: 0.125rem;
+
+
+// ── Root ────────────────────────────────────
+.customer-auth {
+    background-color: $surface-void;
+    color: $text-primary;
+}

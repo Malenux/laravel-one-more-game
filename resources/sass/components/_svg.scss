@@ -4,12 +4,12 @@ svg {
     background: transparent;
     width: 1.8rem;
     height: 1.8rem;
-    fill: $svg-subtle;
-    transition: fill $transition-mid;
+    fill: $icon-muted;
+    transition: fill $transition-fast;
     padding: 0;
     margin: 0;
 
     &:hover {
-        fill: $svg-active;
+        fill: $icon-active;
     }
 }
