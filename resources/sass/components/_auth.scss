@@ -1,0 +1,203 @@
+@use "../base/variables-auth" as *;
+
+.auth {
+    background-color: $surface-void;
+    color: $text-primary;
+}
+
+.register,
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    gap: 2rem;
+
+    @media screen and (max-width: 768px) {
+        gap: 1rem;
+        padding: 1rem;
+    }
+}
+
+// ── Header ──────────────────────────────────
+.auth-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+
+    h1 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: $text-primary;
+        letter-spacing: 0.05em;
+    }
+
+    h2 {
+        font-size: 0.85rem;
+        font-weight: 400;
+        color: $text-muted;
+        text-transform: lowercase;
+        letter-spacing: 0.15em;
+    }
+}
+
+// ── Card / Body ─────────────────────────────
+.auth-body {
+    background-color: $surface-raised;
+    padding: 2rem;
+    border-radius: $radius-lg;
+    border: $border-width solid $border-dim;
+    box-shadow: 0 16px 48px $shadow-card;
+}
+
+// ── Form ────────────────────────────────────
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        width: 26rem;
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+        }
+    }
+
+    &__label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: $text-secondary;
+        letter-spacing: 0.05em;
+        margin-top: 0.6rem;
+    }
+
+    &__input {
+        font-size: 1rem;
+        color: $text-primary;
+        background-color: $surface-input;
+        border: $border-width solid $border-dim;
+        border-radius: $radius-sm;
+        padding: 0.65rem 1rem;
+        outline: none;
+        transition: border-color $transition-fast, box-shadow $transition-fast;
+
+        &::placeholder {
+            color: $text-muted;
+        }
+
+        &:focus {
+            border-color: $border-glow;
+            box-shadow: 0 0 0 3px $accent-glow;
+        }
+    }
+
+    &__options {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
+    }
+
+    &__remember {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.85rem;
+        font-weight: 400;
+        color: $text-muted;
+        cursor: pointer;
+
+        input[type="checkbox"] {
+            accent-color: $accent;
+            width: 0.9rem;
+            height: 0.9rem;
+            cursor: pointer;
+        }
+    }
+
+    &__error-list {
+        background-color: $state-error-dim;
+        border: $border-width solid $state-error;
+        border-radius: $radius-sm;
+        padding: 0.6rem 0.8rem;
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            li {
+                font-size: 0.8rem;
+                font-weight: 400;
+                color: $state-error;
+                letter-spacing: 0.05em;
+            }
+        }
+    }
+
+    &__footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
+    }
+
+    &__button {
+
+        &--secondary {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+
+            a {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.85rem;
+                font-weight: 500;
+                color: $text-muted;
+                text-decoration: none;
+                transition: color $transition-fast;
+
+                &:hover {
+                    color: $text-primary;
+                }
+            }
+        }
+
+        &--primary {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: $text-tertiary;
+            background-color: $accent;
+            border: none;
+            border-radius: $radius-sm;
+            padding: 0.65rem 1.5rem;
+            cursor: pointer;
+            letter-spacing: 0.03em;
+            transition: background-color $transition-fast, box-shadow $transition-fast;
+
+            &:hover {
+                background-color: $accent-hover;
+                box-shadow: 0 0 14px $accent-glow;
+            }
+
+            &:focus-visible {
+                outline: $border-width solid $border-glow;
+                outline-offset: 2px;
+            }
+        }
+    }
+}

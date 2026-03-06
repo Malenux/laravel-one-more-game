@@ -1,27 +1,26 @@
 //  CUSTOMER AUTH
 
 // ── Fondos ──────────────────────────────────
-$surface-void: #0b0f14;
-$surface-deep: #131a24;
-$surface-raised: #1c2738;
-$surface-input: #222d3d;
+$surface-void: hsl(0, 0%, 5%);
+$surface-deep: hsl(0, 0%, 9%);
+$surface-raised: hsl(0, 0%, 13%);
+$surface-input: hsl(0, 0%, 17%);
 
 // ── Bordes ──────────────────────────────────
-$border-dim: #2e3f55;
-$border-mid: #3d5470;
-$border-glow: #00d4c8;
+$border-dim: hsl(0, 0%, 20%);
+$border-mid: hsl(0, 0%, 30%);
+$border-glow: hsl(320, 80%, 55%);
 
 // ── Tipografía ──────────────────────────────
-$text-primary: #e8f4f8;
-$text-secondary: #a0c4ff;
-$text-tertiary: #222d3d;
-$text-muted: #6c757d;
+$text-primary: hsl(0, 0%, 90%);
+$text-secondary: hsl(0, 0%, 62%);
+$text-muted: hsl(0, 0%, 40%);
 
 // ── Acento principal ───────
-$accent: #00d4c8;
-$accent-hover: #00b8d4;
-$accent-dim: hsla(178, 100%, 41%, 0.15);
-$accent-glow: hsla(180, 100%, 50%, 0.2);
+$accent: hsl(320, 85%, 42%);
+$accent-hover: hsl(320, 85%, 34%);
+$accent-glow: hsla(320, 85%, 55%, 0.2);
+$accent-dim: hsla(320, 85%, 55%, 0.12);
 
 // ── Estado de error ─────────────────────────
 $state-error: hsl(0, 80%, 57%);
