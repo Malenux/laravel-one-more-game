@@ -1,108 +1,60 @@
-export default (() => {
+import store from './redux/store';
+import { setForm, setTable } from './redux/crud-slice';
 
-    const tableSection = document.querySelector('.admin-table');
+const tableSection = document.querySelector('.admin-table');
+let currentTable = null;
 
-    document.addEventListener("refreshTable", event => {
-        tableSection.innerHTML = event.detail.table;
-    });
+store.subscribe(() => {
+    const state = store.getState();
+    if (state.crud.table !== currentTable) {
+        tableSection.innerHTML = state.crud.table || '';
+        currentTable = state.crud.table;
+    }
+});
 
-    tableSection?.addEventListener('click', async (event) => {
+document.addEventListener('refreshTable', event => {
+    tableSection.innerHTML = event.detail.table || '';
+    currentTable = event.detail.table;
+});
 
-        if (event.target.closest('.edit-button')) {
+tableSection?.addEventListener('click', async (event) => {
+    const editButton = event.target.closest('.edit-button');
+    const deleteButton = event.target.closest('.delete-button');
+    const paginationButton = event.target.closest('.table-pagination-page');
 
-            const editButton = event.target.closest('.edit-button')
+    try {
+        if (editButton) {
             const endpoint = editButton.dataset.endpoint;
+            const response = await fetch(endpoint, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+            const data = await response.json();
 
-            try {
-                const response = await fetch(endpoint, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                    },
-                    method: 'GET',
-                })
-
-                if (response.status === 500) {
-                    throw response
-                }
-
-                if (response.status === 200) {
-
-                    const json = await response.json();
-
-                    document.dispatchEvent(new CustomEvent('refreshForm', {
-                        detail: {
-                            form: json.form,
-                        }
-                    }));
-                }
-
-            } catch (error) {
-
-                const json = await error.json();
-
-                document.dispatchEvent(new CustomEvent('message', {
-                    detail: {
-                        message: json.message,
-                        type: 'error'
-                    }
-                }))
+            if (response.ok) {
+                store.dispatch(setForm(data.form));
+                store.dispatch(setTable(data.table));
+                document.dispatchEvent(new CustomEvent('refreshForm', { detail: { form: data.form } }));
+            } else {
+                throw data;
             }
         }
 
-        if (event.target.closest('.delete-button')) {
-
-            const deleteButton = event.target.closest('.delete-button');
+        if (deleteButton) {
             const endpoint = deleteButton.dataset.endpoint;
-
-            document.dispatchEvent(new CustomEvent('openModalDelete', {
-                detail: {
-                    endpoint: endpoint,
-                }
-            }));
+            document.dispatchEvent(new CustomEvent('openModalDelete', { detail: { endpoint } }));
         }
 
-        if (event.target.closest('.table-pagination-page')) {
+        if (paginationButton && !paginationButton.classList.contains('inactive')) {
+            const endpoint = paginationButton.dataset.pagination;
+            const response = await fetch(endpoint, { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+            const data = await response.json();
 
-            const paginationButton = event.target.closest('.table-pagination-page');
-
-            if (paginationButton.classList.contains('inactive')) {
-                return;
-            }
-
-            try {
-
-                let endpoint = paginationButton.dataset.pagination;
-
-                const response = await fetch(endpoint, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                    },
-                    method: 'GET',
-                })
-
-                if (response.status === 500) {
-                    throw response
-                }
-
-                const json = await response.json();
-
-                document.dispatchEvent(new CustomEvent('refreshTable', {
-                    detail: {
-                        table: json.table,
-                    }
-                }));
-
-            } catch (error) {
-
-                const json = await error.json();
-
-                document.dispatchEvent(new CustomEvent('message', {
-                    detail: {
-                        message: json.message,
-                        type: 'error'
-                    }
-                }))
+            if (response.ok) {
+                document.dispatchEvent(new CustomEvent('refreshTable', { detail: { table: data.table } }));
+            } else {
+                throw data;
             }
         }
-    });
-})();
+    } catch (error) {
+        const message = error?.message || 'Error de red o inesperado';
+        document.dispatchEvent(new CustomEvent('message', { detail: { message, type: 'error' } }));
+    }
+});

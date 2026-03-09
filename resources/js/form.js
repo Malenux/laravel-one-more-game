@@ -1,148 +1,92 @@
-export default (() => {
+import store from './redux/store';
+import { setForm, setTable } from './redux/crud-slice';
 
-    const formSection = document.querySelector('.admin-form');
+const formContainer = document.querySelector('.admin-form');
+let currentForm = null;
 
-    formSection?.querySelector('form')?.addEventListener('submit', event => {
+store.subscribe(() => {
+    const state = store.getState();
+    if (state.crud.form !== currentForm) {
+        formContainer.innerHTML = state.crud.form || '';
+        currentForm = state.crud.form;
+
+        attachFormSubmit();
+    }
+});
+
+function attachFormSubmit () {
+    const form = formContainer.querySelector('form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (event) => {
         event.preventDefault();
-    });
 
-    document.addEventListener("refreshForm", event => {
-        formSection.innerHTML = event.detail.form;
+        const saveButton = form.querySelector('.save-button');
+        if (!saveButton) return;
 
-        formSection.querySelector('form')?.addEventListener('submit', event => {
-            event.preventDefault();
-        });
-    });
+        const endpoint = saveButton.dataset.endpoint;
+        const formData = new FormData(form);
 
-    formSection?.addEventListener('click', async (event) => {
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+                },
+                body: formData
+            });
 
-        if (event.target.closest('.save-button')) {
+            const data = await response.json();
 
-            const saveButton = event.target.closest('.save-button')
-            const endpoint = saveButton.dataset.endpoint;
-            const form = document.querySelector('.form__body form');
-            const formData = new FormData(form);
-
-            try {
-                const response = await fetch(endpoint, {
-                    headers: {
-                        'Accept': 'application/json',
-                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-                    },
-                    method: 'POST',
-                    body: formData
-                })
-
-                if (response.status === 500 || response.status === 422) {
-                    throw response
-                }
-
-                if (response.status === 200) {
-
-                    const json = await response.json();
-
-                    formSection.innerHTML = json.form;
-
-                    formSection.querySelector('form')?.addEventListener('submit', event => {
-                        event.preventDefault();
-                    });
-
-                    document.dispatchEvent(new CustomEvent('refreshTable', {
-                        detail: {
-                            table: json.table,
-                        }
-                    }));
-
-                    document.dispatchEvent(new CustomEvent('message', {
-                        detail: {
-                            message: json.message,
-                            type: 'success'
-                        }
-                    }))
-                }
-
-            } catch (error) {
-
-                if (error.status === 422) {
-
-                    const json = await error.json();
-
-                    document.dispatchEvent(new CustomEvent('showformValidations', {
-                        detail: {
-                            formValidation: form.previousElementSibling,
-                            errors: json.errors
-                        }
-                    }))
-
-                    document.dispatchEvent(new CustomEvent('message', {
-                        detail: {
-                            message: json.message,
-                            type: 'error'
-                        }
-                    }))
-                }
-
-                if (error.status === 500) {
-
-                    const json = await error.json();
-
-                    document.dispatchEvent(new CustomEvent('message', {
-                        detail: {
-                            message: json.message,
-                            type: 'error'
-                        }
-                    }))
-                }
-            }
-        }
-
-        if (event.target.closest('.clean-button')) {
-
-            const cleanButton = event.target.closest('.clean-button')
-            const endpoint = cleanButton.dataset.endpoint;
-
-            try {
-                const response = await fetch(endpoint, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                    },
-                    method: 'GET',
-                })
-
-                if (response.status === 500) {
-                    throw response
-                }
-
-                if (response.status === 200) {
-
-                    const json = await response.json();
-
-                    document.dispatchEvent(new CustomEvent('refreshForm', {
-                        detail: {
-                            form: json.form,
-                        }
-                    }));
-                }
-
-            } catch (error) {
-                document.dispatchEvent(new CustomEvent('message', {
+            if (response.status === 422) {
+                document.dispatchEvent(new CustomEvent('showformValidations', {
                     detail: {
-                        message: 'La acción no se pudo completar por un fallo en el servidor.',
-                        type: 'error'
+                        formValidation: form.previousElementSibling,
+                        errors: data.errors
                     }
-                }))
+                }));
+                document.dispatchEvent(new CustomEvent('message', {
+                    detail: { message: data.message, type: 'error' }
+                }));
+                return;
             }
+
+            if (response.status === 500) {
+                document.dispatchEvent(new CustomEvent('message', {
+                    detail: { message: data.message, type: 'error' }
+                }));
+                return;
+            }
+
+            store.dispatch(setForm(data.form));
+            store.dispatch(setTable(data.table));
+
+            document.dispatchEvent(new CustomEvent('refreshTable', {
+                detail: { table: data.table }
+            }));
+
+            document.dispatchEvent(new CustomEvent('message', {
+                detail: { message: data.message, type: 'success' }
+            }));
+
+        } catch (error) {
+            console.error('Error en submit del form:', error);
+            document.dispatchEvent(new CustomEvent('message', {
+                detail: { message: 'Error de red o inesperado.', type: 'error' }
+            }));
         }
     });
+}
 
-    formSection?.addEventListener('input', async (event) => {
+document.addEventListener('refreshForm', event => {
+    formContainer.innerHTML = event.detail.form || '';
+    attachFormSubmit();
+});
 
-        if (event.target.closest('[type="range"]')) {
-
-            const inputRange = event.target.closest('[type="range"]');
-            const rangeValue = inputRange.parentElement.querySelector('.range-value');
-
-            rangeValue.innerText = inputRange.value;
-        }
-    });
-})();
+formContainer?.addEventListener('input', (event) => {
+    if (event.target.type === 'range') {
+        const rangeValue = event.target.parentElement.querySelector('.range-value');
+        if (rangeValue) rangeValue.innerText = event.target.value;
+    }
+});
