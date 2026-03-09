@@ -1,0 +1,205 @@
+@use "sass:map";
+@use "../base/variables-auth" as vars;
+
+@mixin auth-styles($t) {
+
+    background-color: map.get($t, surface-void);
+    color: map.get($t, text-primary);
+
+    .auth__layout {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        gap: 2rem;
+
+        @media (max-width: 768px) {
+            gap: 1rem;
+            padding: 1rem;
+        }
+    }
+
+    .auth__header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            text-transform: capitalize;
+            color: map.get($t, text-primary);
+            letter-spacing: 0.05em;
+        }
+
+        h2 {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: map.get($t, text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+    }
+
+    .auth__card {
+        background-color: map.get($t, surface-raised);
+        padding: 2rem;
+        border-radius: vars.$radius-lg;
+        border: vars.$border-width solid map.get($t, border-dim);
+        box-shadow: 0 16px 48px map.get($t, shadow-card);
+    }
+
+    .auth__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .auth__fields {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        width: 26rem;
+
+        @media (max-width: 768px) {
+            width: 100%;
+        }
+    }
+
+    .auth__label {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: map.get($t, text-secondary);
+        letter-spacing: 0.05em;
+        margin-top: 0.6rem;
+    }
+
+    .auth__input {
+        font-size: 1rem;
+        color: map.get($t, text-primary);
+        background-color: map.get($t, surface-input);
+        border: vars.$border-width solid map.get($t, border-dim);
+        border-radius: vars.$radius-sm;
+        padding: 0.65rem 1rem;
+        outline: none;
+        transition: border-color vars.$transition-fast, box-shadow vars.$transition-fast;
+
+        &::placeholder {
+            color: map.get($t, text-muted);
+        }
+
+        &:focus {
+            border-color: map.get($t, border-glow);
+            box-shadow: 0 0 0 3px map.get($t, accent-glow);
+        }
+    }
+
+    .auth__options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
+    }
+
+    .auth__remember {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.85rem;
+        color: map.get($t, text-muted);
+        cursor: pointer;
+
+        input[type="checkbox"] {
+            accent-color: map.get($t, accent);
+            width: 0.9rem;
+            height: 0.9rem;
+            cursor: pointer;
+        }
+    }
+
+    .auth__errors {
+        background-color: vars.$state-error-dim;
+        border: vars.$border-width solid vars.$state-error;
+        border-radius: vars.$radius-sm;
+        padding: 0.6rem 0.8rem;
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            li {
+                font-size: 0.8rem;
+                color: vars.$state-error;
+                letter-spacing: 0.05em;
+            }
+        }
+    }
+
+    .auth__footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
+    }
+
+    .auth__btn {
+        &--ghost {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+
+            a {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.85rem;
+                font-weight: 500;
+                color: map.get($t, text-muted);
+                text-decoration: none;
+                transition: color vars.$transition-fast;
+
+                &:hover {
+                    color: map.get($t, text-primary);
+                }
+            }
+        }
+
+        &--primary {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: map.get($t, text-tertiary);
+            background-color: map.get($t, accent);
+            border: none;
+            border-radius: vars.$radius-sm;
+            padding: 0.65rem 1.5rem;
+            cursor: pointer;
+            letter-spacing: 0.03em;
+            transition: background-color vars.$transition-fast, box-shadow vars.$transition-fast;
+
+            &:hover {
+                background-color: map.get($t, accent-hover);
+                box-shadow: 0 0 14px map.get($t, accent-glow);
+            }
+
+            &:focus-visible {
+                outline: vars.$border-width solid map.get($t, border-glow);
+                outline-offset: 2px;
+            }
+        }
+    }
+}
+
+// ── Instancias de tema ───────────────────────
+.auth--admin {
+    @include auth-styles(vars.$auth-admin);
+}
+
+.auth--customer {
+    @include auth-styles(vars.$auth-customer);
+}

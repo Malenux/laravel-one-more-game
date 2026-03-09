@@ -41,8 +41,6 @@ class CustomerLoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        \Debugbar::info($this->only('email', 'password'));
-
         if (! Auth::guard('customer')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 

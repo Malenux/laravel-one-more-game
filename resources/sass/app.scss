@@ -3,14 +3,12 @@
 // ------------------------------
 @use "base/reset";
 @use "base/variables-auth";
-@use "base/variables-customer-auth";
 @use "base/variables-panel-admin";
 
 // ------------------------------
 //       COMPONENTS STYLES
 // ------------------------------
-@use "components/auth";
-@use "components/customer-auth";
+@use "components/auth-base";
 @use "components/form";
 @use "components/layout";
 @use "components/message";

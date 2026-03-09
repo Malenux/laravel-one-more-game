@@ -50,7 +50,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'], function () {
 Route::group(['prefix' => 'cuenta', 'middleware' => 'auth:customer'], function () {
     Route::get('/perfil', function () {
         return view('customer.dashboard.index');
-    })->name('customer-dashboard');
+    })->name('customer.dashboard');
 });
 
 Route::middleware('auth:web')->group(function () {

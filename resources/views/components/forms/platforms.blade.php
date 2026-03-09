@@ -2,11 +2,8 @@
 
   <div class="form__header">
     <div class="form__header-box">
-      <div class="tabs">
-        <div class="tab active" data-tab="general">
-          <button>General</button>
-        </div>
-      </div>
+      
+      <x-tabs :tabs="['general' => 'General']" />
 
       <div class="form__header-buttons">
         <button class="clean-button" data-endpoint="{{route('platforms_create')}}">
@@ -29,7 +26,7 @@
   <div class="form__body">
     <form>
       <input type="hidden" name="id" value="{{ $record->id }}">
-      <div class="tab-content active" data-tab="general">
+      <x-tab id="general" active>
         <div class="form-element">
           <div class="form-title">
             <span>Nombre</span>
@@ -38,7 +35,7 @@
             <input type="text" placeholder="" name="name" value="{{ $record->name }}">
           </div>
         </div>
-      </div>
+      </x-tab>
     </form>
     <div class="validation-errors">
       <ul></ul>

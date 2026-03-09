@@ -1,5 +1,5 @@
-@props(['id'])
+@props(['id', 'active' => false])
 
-<div class="tab-content {{ $attributes->get('active') !== null ? 'active' : '' }}" data-tab="{{ $id }}">
+<div class="tab-content {{ $active ? 'active' : '' }}" data-tab="{{ $id }}">
   {{ $slot }}
 </div>

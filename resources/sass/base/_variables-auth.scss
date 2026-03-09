@@ -1,50 +1,40 @@
-// AUTH
+// ── Tema Admin ──────────────────────────────
+$auth-admin: (
+    surface-void: hsl(220, 15%, 4%),
+    surface-raised: hsl(220, 13%, 10%),
+    surface-input: hsl(220, 12%, 13%),
+    border-dim: hsla(210, 20%, 60%, 0.1),
+    border-glow: hsl(177, 90%, 50%),
+    text-primary: hsl(195, 30%, 92%),
+    text-secondary: hsl(210, 40%, 75%),
+    text-tertiary: hsl(220, 20%, 10%),
+    text-muted: hsla(210, 15%, 55%, 0.8),
+    accent: hsl(177, 90%, 42%),
+    accent-hover: hsl(177, 95%, 48%),
+    accent-glow: hsla(177, 90%, 50%, 0.15),
+    shadow-card: hsla(0, 0%, 0%, 0.5),
+);
 
-// ── Fondos ──────────────────────────────────
-$surface-void: hsl(220, 15%, 4%);
-$surface-deep: hsl(220, 14%, 7%);
-$surface-raised: hsl(220, 13%, 10%);
-$surface-input: hsl(220, 12%, 13%);
+// ── Tema Customer ───────────────────────────
+$auth-customer: (
+    surface-void: hsl(330, 12%, 4%),
+    surface-raised: hsl(330, 10%, 10%),
+    surface-input: hsl(330, 9%, 13%),
+    border-dim: hsla(320, 25%, 60%, 0.1),
+    border-glow: hsl(320, 85%, 60%),
+    text-primary: hsl(0, 0%, 92%),
+    text-secondary: hsl(320, 60%, 80%),
+    text-tertiary: hsl(330, 15%, 8%),
+    text-muted: hsla(320, 10%, 55%, 0.8),
+    accent: hsl(320, 75%, 48%),
+    accent-hover: hsl(320, 80%, 55%),
+    accent-glow: hsla(320, 80%, 60%, 0.15),
+    shadow-card: hsla(330, 20%, 0%, 0.55),
+);
 
-// ── Bordes ──────────────────────────────────
-$border-dim: hsla(210, 20%, 60%, 0.1);
-$border-mid: hsla(210, 20%, 60%, 0.2);
-$border-glow: hsl(177, 90%, 50%);
-
-// ── Tipografía ──────────────────────────────
-$text-primary: hsl(195, 30%, 92%);
-$text-secondary: hsl(210, 40%, 75%);
-$text-tertiary: hsl(220, 20%, 10%);
-$text-muted: hsla(210, 15%, 55%, 0.8);
-
-// ── Acento ──────────────────────────────────
-$accent: hsl(177, 90%, 42%);
-$accent-hover: hsl(177, 95%, 48%);
-$accent-dim: hsla(177, 90%, 42%, 0.08);
-$accent-glow: hsla(177, 90%, 50%, 0.15);
-
-// ── Estado de error ─────────────────────────
 $state-error: hsl(0, 72%, 60%);
 $state-error-dim: hsla(0, 72%, 60%, 0.08);
-
-// ── Sombras ─────────────────────────────────
-$shadow-void: hsla(0, 0%, 0%, 0.7);
-$shadow-card: hsla(0, 0%, 0%, 0.5);
-
-// ── Transiciones ────────────────────────────
 $transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-$transition-mid: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-
-// ── Bordes redondeados ──────────────────────
 $radius-sm: 0.375rem;
-$radius-md: 0.625rem;
 $radius-lg: 1rem;
-
-// ── Border width ────────────────────────────
 $border-width: 1px;
-
-// ── Root ────────────────────────────────────
-.customer-auth {
-    background-color: $surface-void;
-    color: $text-primary;
-}

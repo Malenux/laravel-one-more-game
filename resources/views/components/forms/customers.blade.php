@@ -67,7 +67,7 @@
         <div class="form-element">
           <div class="form-title"><span>Avatar</span></div>
           <div class="form-element-input">
-            <input type="file" value="avatar" class="input-button">
+            <input type="file" value="image" class="input-button">
           </div>
         </div>
       </x-tab>
