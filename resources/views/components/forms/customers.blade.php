@@ -2,14 +2,8 @@
 
   <div class="form__header">
     <div class="form__header-box">
-      <div class="tabs">
-        <div class="tab active" data-tab="general">
-          <button>General</button>
-        </div>
-        <div class="tab" data-tab="images">
-          <button>Imágenes</button>
-        </div>
-      </div>
+
+      <x-tabs :tabs="['general' => 'General', 'avatar' => 'Avatar']" />
 
       <div class="form__header-buttons">
         <button class="clean-button" data-endpoint="{{route('customers_create')}}">
@@ -30,9 +24,11 @@
   </div>
 
   <div class="form__body">
+
     <form>
       <input type="hidden" name="id" value="{{ $record->id }}">
-      <div class="tab-content active" data-tab="general">
+
+      <x-tab id="general" active>
         <div class="form-element">
           <div class="form-title">
             <span>Nombre</span>
@@ -65,19 +61,16 @@
             <input type="password" placeholder="" name="password_confirmation">
           </div>
         </div>
-      </div>
-      <div class="tab-content" data-tab="images">
+      </x-tab>
+
+      <x-tab id="avatar">
         <div class="form-element">
-          <div class="form-title">
-            <span>Avatar</span>
-          </div>
+          <div class="form-title"><span>Avatar</span></div>
           <div class="form-element-input">
-            <button>
-              {{-- <input type="file" name="avatar"> --}}
-            </button>
+            <input type="file" value="avatar" class="input-button">
           </div>
         </div>
-      </div>
+      </x-tab>
     </form>
     <div class="validation-errors">
       <ul></ul>

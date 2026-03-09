@@ -3,6 +3,7 @@ import './form';
 import './message';
 import './table';
 import './modal-delete';
+import './tabs';
 
 import Alpine from 'alpinejs';
 

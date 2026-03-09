@@ -133,22 +133,6 @@ export default (() => {
                 }))
             }
         }
-
-        if (event.target.closest('.tab')) {
-
-            const tab = event.target.closest('.tab')
-            const tabName = tab.dataset.tab;
-
-            const tabContent = document.querySelector(`.tab-content[data-tab="${tabName}"]`);
-            const activeTab = document.querySelector('.tab.active');
-            const activeTabContent = document.querySelector('.tab-content.active');
-
-            activeTab.classList.remove('active');
-            activeTabContent.classList.remove('active');
-
-            tab.classList.add('active');
-            tabContent.classList.add('active');
-        }
     });
 
     formSection?.addEventListener('input', async (event) => {
