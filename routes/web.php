@@ -34,6 +34,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'], function () {
             'destroy' => 'customers_destroy',
         ]
     ]);
+
+    Route::resource('plataformas', 'App\Http\Controllers\Admin\PlatformController', [
+        'parameters' => ['plataformas' => 'platform'],
+        'names' => [
+            'index'   => 'platforms',
+            'create'  => 'platforms_create',
+            'store'   => 'platforms_store',
+            'edit'    => 'platforms_edit',
+            'destroy' => 'platforms_destroy',
+        ]
+    ]);
 });
 
 Route::group(['prefix' => 'cuenta', 'middleware' => 'auth:customer'], function () {
@@ -47,6 +58,9 @@ Route::middleware('auth:web')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/plataformas', 'App\Http\Controllers\Public\PlatformController@index')->name('platforms');
+Route::get('/plataformas/{platform}', 'App\Http\Controllers\Public\PlatformController@show')->name('platform');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/auth-customer.php';

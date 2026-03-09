@@ -3,32 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Sitemap;
 
 class Platform extends Model
 {
-    protected $table = 'platforms';
+    use SoftDeletes;
 
-    protected $fillable = [
-        'name',
-        'slug',
-    ];
+    protected $guarded = [];
 
-    public function games(): BelongsToMany
+    public function sitemap()
     {
-        return $this->belongsToMany(Game::class, 'game_platform')
-                    ->withPivot('external_game_id')
-                    ->withTimestamps();
-    }
-
-    public function externalAccounts(): HasMany
-    {
-        return $this->hasMany(ExternalAccount::class);
-    }
-
-    public function achievements(): HasMany
-    {
-        return $this->hasMany(Achievement::class);
+        return $this->hasOne(Sitemap::class, 'entity_id')->where('entity', 'platforms');
     }
 }
