@@ -82,7 +82,9 @@
 }
 
 .form-element-input {
-    input {
+
+    input,
+    textarea {
         width: 100%;
         padding: 0.5rem;
         border-radius: $radius-sm;
@@ -90,6 +92,9 @@
         background-color: $bg-input;
         color: $text-primary;
         transition: border-color $transition-fast, box-shadow $transition-fast;
+        font-family: inherit;
+        font-size: 1rem;
+        resize: vertical;
 
         &:focus {
             outline: none;
@@ -100,6 +105,14 @@
         &.error {
             border-color: $state-error-light;
         }
+    }
+
+    textarea {
+        min-height: 4rem;
+        max-height: 15rem;
+        padding: 0.5rem;
+        line-height: 1.5;
+        overflow-y: auto;
     }
 }
 

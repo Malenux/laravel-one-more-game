@@ -1,3 +1,6 @@
+import './redux/crud-slice'
+import './redux/store'
+
 import './bootstrap';
 import './form';
 import './message';

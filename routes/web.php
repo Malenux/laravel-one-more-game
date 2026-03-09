@@ -45,6 +45,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'], function () {
             'destroy' => 'platforms_destroy',
         ]
     ]);
+
+    Route::resource('juegos', 'App\Http\Controllers\Admin\GameController', [
+        'parameters' => ['juegos' => 'games'],
+        'names' => [
+            'index'   => 'games',
+            'create'  => 'games_create',
+            'store'   => 'games_store',
+            'edit'    => 'games_edit',
+            'destroy' => 'games_destroy',
+        ]
+    ]);
 });
 
 Route::group(['prefix' => 'cuenta', 'middleware' => 'auth:customer'], function () {

@@ -7,5 +7,5 @@
       <button type="button">{{ $label }}</button>
     </div>
   @endforeach
-  
+
 </div>
