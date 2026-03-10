@@ -31,4 +31,12 @@ class Customer extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (Customer $customer) {
+            $customer->email = $customer->email . '||deleted||' . $customer->id;
+            $customer->saveQuietly();
+        });
+    }
 }

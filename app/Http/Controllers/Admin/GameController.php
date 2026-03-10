@@ -117,6 +117,9 @@ class GameController extends Controller
       $this->sitemapService->deleteSlug('games', $game->id);
 
       $games = $this->game
+      ->when(request('title'), fn($q) => $q->where('title', 'like', '%' . request('title') . '%'))
+      ->when(request('name'), fn($q) => $q->where('name', 'like', '%' . request('name') . '%'))
+      ->when(request('created_at'), fn($q) => $q->whereDate('created_at', request('created_at')))
       ->orderBy('created_at', 'desc')
       ->paginate(10);
 

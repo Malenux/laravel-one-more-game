@@ -1,0 +1,23 @@
+@use '../base/variables-panel-admin' as *;
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: hsla(210, 40%, 4%, 0.65);
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity $transition-mid, visibility $transition-mid;
+
+    &.active {
+        visibility: visible;
+        opacity: 1;
+        z-index: 999;
+    }
+}

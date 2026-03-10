@@ -19,6 +19,8 @@ class PlatformController extends Controller
     try{
 
       $platforms = $this->platform
+        ->when(request('name'),       fn($q) => $q->where('name', 'like', '%' . request('name') . '%'))
+        ->when(request('created_at'), fn($q) => $q->whereDate('created_at', request('created_at')))
         ->orderBy('created_at', 'desc')
         ->paginate(10);
       

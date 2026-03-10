@@ -3,8 +3,9 @@
 namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class PlatformRequest extends FormRequest
+class GameRequest extends FormRequest
 {
     public function authorize()
     {

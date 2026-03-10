@@ -62,4 +62,10 @@ $icon-delete: hsla(210, 15%, 80%, 0.45);
 // ── Panel ──────────────────────────────
 .admin-panel {
     background-color: $bg-deep;
+
+    h1 {
+        color: $text-primary;
+        text-align: center;
+        padding: 2rem 0 0.2rem 0;
+    }
 }

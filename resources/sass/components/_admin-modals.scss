@@ -1,0 +1,63 @@
+@use "../base/variables-panel-admin" as *;
+
+.delete-modal,
+.filter-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: $bg-raised;
+    border: $border-width solid $border-mid;
+    border-radius: $radius-md;
+    padding: 2rem;
+    box-shadow: 0 16px 48px $shadow-void;
+    z-index: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity $transition-mid, visibility $transition-mid;
+
+    &.active {
+        visibility: visible;
+        opacity: 1;
+        z-index: 1000;
+    }
+
+    &__header h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: $text-muted;
+        text-align: center;
+    }
+
+    &__body,
+    &__header {
+        color: $text-primary
+    }
+
+    &__actions {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    &__btn {
+        background-color: $bg-delete-btn;
+        border: $border-width solid $border-delete;
+        border-radius: $radius-sm;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        transition: border-color $transition-fast, box-shadow $transition-fast;
+
+        &--confirm:hover {
+            border-color: $state-confirm;
+            box-shadow: 0 0 8px hsla(145, 70%, 52%, 0.3);
+        }
+
+        &--cancel:hover {
+            border-color: $state-error-light;
+            box-shadow: 0 0 8px hsla(0, 90%, 60%, 0.25);
+
+        }
+
+    }
+}

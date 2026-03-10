@@ -18,6 +18,9 @@ class CustomerController extends Controller
     try{
 
       $customers = $this->customer
+        ->when(request('name'),       fn($q) => $q->where('name', 'like', '%' . request('name') . '%'))
+        ->when(request('email'),      fn($q) => $q->where('email', 'like', '%' . request('email') . '%'))
+        ->when(request('created_at'), fn($q) => $q->whereDate('created_at', request('created_at')))
         ->orderBy('created_at', 'desc')
         ->paginate(10);
       

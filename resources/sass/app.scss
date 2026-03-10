@@ -5,11 +5,14 @@
 
 //       COMPONENTS STYLES
 @use "components/admin-table";
+@use "components/admin-modals-delete";
+@use "components/admin-modals-filter";
+@use "components/admin-modals";
 @use "components/admin-form";
 @use "components/auth-base";
 @use "components/layout";
 @use "components/message";
-@use "components/modal-delete";
+@use "components/overlay";
 @use "components/svg";
 @use "components/tooltip";
 

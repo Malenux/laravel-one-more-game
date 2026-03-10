@@ -10,3 +10,10 @@
   </x-slot>
 
 </x-crud>
+
+<x-modal-filter
+    :fields="[
+        ['name' => 'name', 'label' => 'Nombre', 'type' => 'text', 'placeholder' => 'Buscar por nombre...'],
+        ['name' => 'created_at', 'label' => 'Fecha',  'type' => 'date'],
+    ]"
+/>

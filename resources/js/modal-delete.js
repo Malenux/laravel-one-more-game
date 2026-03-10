@@ -1,14 +1,12 @@
+// modal-delete.js
 import store from './redux/store';
 import { setDeleteModal, setTable } from './redux/crud-slice';
 
-const deleteModal = document.querySelector('.delete-modal');
-const deleteModalBox = document.querySelector('.delete-modal__box');
+const deleteModalBox = document.querySelector('.delete-modal'); // ← renombrado
 
 store.subscribe(() => {
-    const state = store.getState();
-    const { active } = state.crud.deleteModal;
-    deleteModal.classList.toggle('active', active);
-    deleteModalBox.classList.toggle('active', active);
+    const { deleteModal } = store.getState().crud;
+    deleteModalBox?.classList.toggle('active', deleteModal.active);
 });
 
 document.addEventListener('openModalDelete', event => {
@@ -18,16 +16,17 @@ document.addEventListener('openModalDelete', event => {
     }));
 });
 
-deleteModal?.addEventListener('click', event => {
+deleteModalBox?.addEventListener('click', event => {
     if (event.target.closest('.delete-modal__btn--cancel')) {
         store.dispatch(setDeleteModal({ active: false }));
         document.dispatchEvent(new CustomEvent('message', {
             detail: { message: 'Acción cancelada', type: 'error' }
         }));
+        return;
     }
 });
 
-deleteModal?.addEventListener('click', async event => {
+deleteModalBox?.addEventListener('click', async event => {
     if (!event.target.closest('.delete-modal__btn--confirm')) return;
 
     const endpoint = store.getState().crud.deleteModal.endpoint;

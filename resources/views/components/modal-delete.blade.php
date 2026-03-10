@@ -1,5 +1,5 @@
-<div class="delete-modal">
-    <div class="delete-modal__box">
+<div class="overlay">
+    <div class="delete-modal">
 
         <div class="delete-modal__header">
             <h2>Eliminar</h2>

@@ -1,0 +1,51 @@
+@use "../base/variables-panel-admin" as *;
+
+.delete-modal {
+    width: 25rem;
+
+    &__body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        text-align: center;
+    }
+
+    &__description span {
+        color: $state-error;
+    }
+
+    &__record {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    &__actions {
+        align-items: center;
+    }
+
+    &__btn {
+
+        padding: 0.4rem;
+
+        svg {
+            width: 2rem;
+            height: 2rem;
+            fill: $icon-delete;
+            display: block;
+            transition: fill $transition-fast;
+        }
+
+        &--confirm:hover {
+            svg {
+                fill: $state-confirm;
+            }
+        }
+
+        &--cancel:hover {
+            svg {
+                fill: $state-error-light;
+            }
+        }
+    }
+}
