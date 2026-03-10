@@ -1,5 +1,5 @@
 import store from './redux/store';
-import { setDeleteModal } from './redux/crud-slice';
+import { setDeleteModal, setTable } from './redux/crud-slice';
 
 const deleteModal = document.querySelector('.delete-modal');
 const deleteModalBox = document.querySelector('.delete-modal__box');

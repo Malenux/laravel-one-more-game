@@ -1,0 +1,28 @@
+.auth--customer {
+
+    --surface-void: hsl(330, 12%, 4%);
+    --surface-raised: hsl(330, 10%, 10%);
+    --surface-input: hsl(330, 9%, 13%);
+
+    --border-dim: hsla(320, 25%, 60%, 0.1);
+    --border-glow: hsl(320, 85%, 60%);
+
+    --text-primary: hsl(0, 0%, 92%);
+    --text-secondary: hsl(320, 60%, 80%);
+    --text-tertiary: hsl(330, 15%, 8%);
+    --text-muted: hsla(320, 10%, 55%, 0.8);
+
+    --accent: hsl(320, 75%, 48%);
+    --accent-hover: hsl(320, 80%, 55%);
+    --accent-glow: hsla(320, 80%, 60%, 0.15);
+
+    --state-error: hsl(0, 72%, 60%);
+    --state-error-dim: hsla(0, 72%, 60%, 0.08);
+
+    --shadow-card: hsla(330, 20%, 0%, 0.55);
+
+    --radius-sm: .375rem;
+    --radius-lg: 1rem;
+
+    --border-width: 1px;
+}

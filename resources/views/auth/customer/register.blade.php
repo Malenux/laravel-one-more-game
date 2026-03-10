@@ -13,79 +13,93 @@
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
-<body class="customer-auth">
-    <main class="customer-register">
 
-        <section class="customer-auth-header">
-            <h1>Registrarse</h1>
-            <h2>Cliente</h2>
-        </section>
+<body class="auth auth--customer">
 
-        <section class="customer-auth-body">
-            <form method="POST" action="{{ route('customer.register') }}" class="customer-auth-form">
-                @csrf
+<main class="auth__container">
 
-                <div class="customer-auth-form__body">
+    <section class="auth__header">
+        <h1 class="auth__title">Registrarse</h1>
+        <h2 class="auth__subtitle">Cliente</h2>
+    </section>
 
-                    <label for="name" class="customer-auth-form__label">Nombre</label>
-                    <input type="text" class="customer-auth-form__input"
-                        id="name" name="name"
-                        placeholder="Nombre"
-                        autocomplete="name"
-                        required
-                    >
+    <section class="auth__card">
 
-                    <label for="email" class="customer-auth-form__label">Email</label>
-                    <input type="email" class="customer-auth-form__input"
-                        id="email" name="email"
-                        placeholder="Email"
-                        autocomplete="email"
-                        required
-                    >
+        <form method="POST" action="{{ route('customer.register') }}" class="auth-form">
+            @csrf
 
-                    <label for="password" class="customer-auth-form__label">Contraseña</label>
-                    <input type="password" class="customer-auth-form__input"
-                        id="password" name="password"
-                        placeholder="Contraseña"
-                        autocomplete="new-password"
-                        required
-                    >
+            <div class="auth-form__fields">
 
-                    <label for="password_confirmation" class="customer-auth-form__label">Confirmación de contraseña</label>
-                    <input type="password" class="customer-auth-form__input"
-                        id="password_confirmation" name="password_confirmation"
-                        placeholder="Confirmación de contraseña"
-                        autocomplete="new-password"
-                        required
-                    >
+                <label for="name" class="auth-form__label">Nombre</label>
+                <input type="text"
+                       class="auth-form__input"
+                       id="name"
+                       name="name"
+                       placeholder="Nombre"
+                       autocomplete="name"
+                       required>
 
+                <label for="email" class="auth-form__label">Email</label>
+                <input type="email"
+                       class="auth-form__input"
+                       id="email"
+                       name="email"
+                       placeholder="Email"
+                       autocomplete="email"
+                       required>
+
+                <label for="password" class="auth-form__label">Contraseña</label>
+                <input type="password"
+                       class="auth-form__input"
+                       id="password"
+                       name="password"
+                       placeholder="Contraseña"
+                       autocomplete="new-password"
+                       required>
+
+                <label for="password_confirmation" class="auth-form__label">
+                    Confirmación de contraseña
+                </label>
+                <input type="password"
+                       class="auth-form__input"
+                       id="password_confirmation"
+                       name="password_confirmation"
+                       placeholder="Confirmación de contraseña"
+                       autocomplete="new-password"
+                       required>
+
+            </div>
+
+            @if ($errors->any())
+                <div class="auth-form__errors">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li class="auth-form__error">{{ $error }}</li>
+                        @endforeach
+                    </ul>
                 </div>
+            @endif
 
-                @if ($errors->any())
-                    <div class="customer-auth-form__error-list">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+            <div class="auth-form__actions">
 
-                <div class="customer-auth-form__footer">
-                    <button type="button" class="customer-auth-form__button--secondary">
-                        <a href="{{ route('customer.login') }}">Iniciar sesión</a>
-                    </button>
+                <a href="{{ route('customer.login') }}"
+                   class="auth-form__button auth-form__button--secondary">
+                    Iniciar sesión
+                </a>
 
-                    <button type="submit"
-                        class="customer-auth-form__button--primary"
+                <button type="submit"
+                        class="auth-form__button auth-form__button--primary"
                         data-endpoint="{{ route('customer.register') }}">
-                        Registrarse
-                    </button>
-                </div>
+                    Registrarse
+                </button>
 
-            </form>
-        </section>
+            </div>
 
-    </main>
+        </form>
+
+    </section>
+
+</main>
+
 </body>
 </html>

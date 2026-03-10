@@ -6,6 +6,7 @@ let currentTable = null;
 
 store.subscribe(() => {
     const state = store.getState();
+
     if (state.crud.table !== currentTable) {
         tableSection.innerHTML = state.crud.table || '';
         currentTable = state.crud.table;
@@ -30,8 +31,6 @@ tableSection?.addEventListener('click', async (event) => {
 
             if (response.ok) {
                 store.dispatch(setForm(data.form));
-                store.dispatch(setTable(data.table));
-                document.dispatchEvent(new CustomEvent('refreshForm', { detail: { form: data.form } }));
             } else {
                 throw data;
             }
@@ -48,7 +47,8 @@ tableSection?.addEventListener('click', async (event) => {
             const data = await response.json();
 
             if (response.ok) {
-                document.dispatchEvent(new CustomEvent('refreshTable', { detail: { table: data.table } }));
+                store.dispatch(setTable(data.table));
+
             } else {
                 throw data;
             }

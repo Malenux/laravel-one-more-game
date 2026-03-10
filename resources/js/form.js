@@ -9,21 +9,15 @@ store.subscribe(() => {
     if (state.crud.form !== currentForm) {
         formContainer.innerHTML = state.crud.form || '';
         currentForm = state.crud.form;
-
-        attachFormSubmit();
     }
 });
 
-function attachFormSubmit () {
-    const form = formContainer.querySelector('form');
-    if (!form) return;
+formContainer?.addEventListener('click', async (event) => {
+    event.preventDefault();
 
-    form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const saveButton = form.querySelector('.save-button');
-        if (!saveButton) return;
-
+    if (event.target.closest('.save-button')) {
+        const form = formContainer.querySelector('form');
+        const saveButton = event.target.closest('.save-button');
         const endpoint = saveButton.dataset.endpoint;
         const formData = new FormData(form);
 
@@ -62,10 +56,6 @@ function attachFormSubmit () {
             store.dispatch(setForm(data.form));
             store.dispatch(setTable(data.table));
 
-            document.dispatchEvent(new CustomEvent('refreshTable', {
-                detail: { table: data.table }
-            }));
-
             document.dispatchEvent(new CustomEvent('message', {
                 detail: { message: data.message, type: 'success' }
             }));
@@ -76,17 +66,7 @@ function attachFormSubmit () {
                 detail: { message: 'Error de red o inesperado.', type: 'error' }
             }));
         }
-    });
-}
-
-document.addEventListener('refreshForm', event => {
-    formContainer.innerHTML = event.detail.form || '';
-    attachFormSubmit();
-});
-
-formContainer?.addEventListener('input', (event) => {
-    if (event.target.type === 'range') {
-        const rangeValue = event.target.parentElement.querySelector('.range-value');
-        if (rangeValue) rangeValue.innerText = event.target.value;
     }
+
+
 });

@@ -1,28 +1,30 @@
-import store from './redux/store';
-import { setMessage } from './redux/crud-slice';
-
 let messageTimeout = null;
 
-store.subscribe(() => {
-    const { text, type } = store.getState().crud.message || {};
-    if (!text) return;
+document.addEventListener('message', function (event) {
+    showMessage(event);
+});
+
+function showMessage (event) {
+    const { message, type } = event.detail;
 
     const spanMessage = document.querySelector('.message span');
     if (!spanMessage) return;
-    spanMessage.textContent = text;
+
+    spanMessage.textContent = message;
 
     const colorElement = document.querySelector('.color');
-    const colorTimeElement = document.querySelector('.color-time');
-
     colorElement.classList.remove('success', 'error');
     colorElement.classList.add(type);
 
+    const colorTimeElement = document.querySelector('.color-time');
     colorTimeElement.classList.remove('success', 'error');
     colorTimeElement.classList.add(type);
 
     colorTimeElement.style.transition = 'none';
     colorTimeElement.style.width = '0%';
+
     void colorTimeElement.offsetWidth;
+
     colorTimeElement.style.transition = 'width 5s linear';
     colorTimeElement.style.width = '100%';
 
@@ -36,7 +38,5 @@ store.subscribe(() => {
         colorTimeElement.style.transition = 'none';
         colorTimeElement.style.width = '0%';
         messageTimeout = null;
-
-        store.dispatch(setMessage({ text: null, type: null }));
     }, 5000);
-});
+}

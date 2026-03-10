@@ -1,0 +1,28 @@
+.auth--admin {
+
+    --surface-void: hsl(220, 15%, 4%);
+    --surface-raised: hsl(220, 13%, 10%);
+    --surface-input: hsl(220, 12%, 13%);
+
+    --border-dim: hsla(210, 20%, 60%, 0.1);
+    --border-glow: hsl(177, 90%, 50%);
+
+    --text-primary: hsl(195, 30%, 92%);
+    --text-secondary: hsl(210, 40%, 75%);
+    --text-tertiary: hsl(220, 20%, 10%);
+    --text-muted: hsla(210, 15%, 55%, 0.8);
+
+    --accent: hsl(177, 90%, 42%);
+    --accent-hover: hsl(177, 95%, 48%);
+    --accent-glow: hsla(177, 90%, 50%, 0.15);
+
+    --state-error: hsl(0, 72%, 60%);
+    --state-error-dim: hsla(0, 72%, 60%, 0.08);
+
+    --shadow-card: hsla(0, 0%, 0%, 0.5);
+
+    --radius-sm: .375rem;
+    --radius-lg: 1rem;
+
+    --border-width: 1px;
+}

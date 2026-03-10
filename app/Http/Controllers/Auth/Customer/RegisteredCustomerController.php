@@ -45,6 +45,6 @@ class RegisteredCustomerController extends Controller
 
         Auth::guard('customer')->login($customer);
 
-        return redirect(route('customer-dashboard', absolute: false));
+        return redirect(route('customer.dashboard', absolute: false));
     }
 }

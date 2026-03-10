@@ -1,205 +1,150 @@
-@use "sass:map";
-@use "../base/variables-auth" as vars;
+.auth {
+    background-color: var(--surface-void);
+    color: var(--text-primary);
+}
 
-@mixin auth-styles($t) {
+.auth__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    gap: 2rem;
 
-    background-color: map.get($t, surface-void);
-    color: map.get($t, text-primary);
+    @media (max-width:768px) {
+        gap: 1rem;
+        padding: 1rem;
+    }
+}
 
-    .auth__layout {
+.auth__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .25rem;
+}
+
+.auth__title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: .05em;
+}
+
+.auth__subtitle {
+    font-size: .85rem;
+    color: var(--text-muted);
+    letter-spacing: .15em;
+}
+
+.auth__card {
+    background-color: var(--surface-raised);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    border: var(--border-width) solid var(--border-dim);
+    box-shadow: 0 16px 48px var(--shadow-card);
+}
+
+.auth-form {
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    &__fields {
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        gap: 2rem;
-
-        @media (max-width: 768px) {
-            gap: 1rem;
-            padding: 1rem;
-        }
-    }
-
-    .auth__header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 0.25rem;
-
-        h1 {
-            font-size: 1.75rem;
-            font-weight: 600;
-            text-transform: capitalize;
-            color: map.get($t, text-primary);
-            letter-spacing: 0.05em;
-        }
-
-        h2 {
-            font-size: 0.85rem;
-            font-weight: 400;
-            color: map.get($t, text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-        }
-    }
-
-    .auth__card {
-        background-color: map.get($t, surface-raised);
-        padding: 2rem;
-        border-radius: vars.$radius-lg;
-        border: vars.$border-width solid map.get($t, border-dim);
-        box-shadow: 0 16px 48px map.get($t, shadow-card);
-    }
-
-    .auth__form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
-    .auth__fields {
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
+        gap: .4rem;
         width: 26rem;
 
-        @media (max-width: 768px) {
+        @media (max-width:768px) {
             width: 100%;
         }
     }
 
-    .auth__label {
-        font-size: 0.9rem;
+    &__label {
+        font-size: .9rem;
         font-weight: 500;
-        color: map.get($t, text-secondary);
-        letter-spacing: 0.05em;
-        margin-top: 0.6rem;
+        color: var(--text-secondary);
+        letter-spacing: .05em;
+        margin-top: .6rem;
     }
 
-    .auth__input {
+    &__input {
         font-size: 1rem;
-        color: map.get($t, text-primary);
-        background-color: map.get($t, surface-input);
-        border: vars.$border-width solid map.get($t, border-dim);
-        border-radius: vars.$radius-sm;
-        padding: 0.65rem 1rem;
+        color: var(--text-primary);
+        background-color: var(--surface-input);
+        border: var(--border-width) solid var(--border-dim);
+        border-radius: var(--radius-sm);
+        padding: .65rem 1rem;
         outline: none;
-        transition: border-color vars.$transition-fast, box-shadow vars.$transition-fast;
+        transition: border-color .2s, box-shadow .2s;
 
         &::placeholder {
-            color: map.get($t, text-muted);
+            color: var(--text-muted);
         }
 
         &:focus {
-            border-color: map.get($t, border-glow);
-            box-shadow: 0 0 0 3px map.get($t, accent-glow);
+            border-color: var(--border-glow);
+            box-shadow: 0 0 0 3px var(--accent-glow);
         }
     }
 
-    .auth__options {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 0.5rem;
-    }
-
-    .auth__remember {
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-        font-size: 0.85rem;
-        color: map.get($t, text-muted);
-        cursor: pointer;
-
-        input[type="checkbox"] {
-            accent-color: map.get($t, accent);
-            width: 0.9rem;
-            height: 0.9rem;
-            cursor: pointer;
-        }
-    }
-
-    .auth__errors {
-        background-color: vars.$state-error-dim;
-        border: vars.$border-width solid vars.$state-error;
-        border-radius: vars.$radius-sm;
-        padding: 0.6rem 0.8rem;
+    &__errors {
+        background-color: var(--state-error-dim);
+        border: var(--border-width) solid var(--state-error);
+        border-radius: var(--radius-sm);
+        padding: .6rem .8rem;
 
         ul {
             display: flex;
             flex-direction: column;
-            gap: 0.25rem;
-            padding: 0;
-            margin: 0;
+            gap: .25rem;
             list-style: none;
-
-            li {
-                font-size: 0.8rem;
-                color: vars.$state-error;
-                letter-spacing: 0.05em;
-            }
+            margin: 0;
+            padding: 0;
         }
     }
 
-    .auth__footer {
+    &__error {
+        font-size: .8rem;
+        color: var(--state-error);
+        letter-spacing: .05em;
+    }
+
+    &__actions {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 0.5rem;
+        margin-top: .5rem;
     }
 
-    .auth__btn {
-        &--ghost {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
+    &__button {
 
-            a {
-                font-family: 'Montserrat', sans-serif;
-                font-size: 0.85rem;
-                font-weight: 500;
-                color: map.get($t, text-muted);
-                text-decoration: none;
-                transition: color vars.$transition-fast;
+        &--secondary {
+            font-size: .85rem;
+            color: var(--text-muted);
+            text-decoration: none;
 
-                &:hover {
-                    color: map.get($t, text-primary);
-                }
+            &:hover {
+                color: var(--text-primary);
             }
         }
 
         &--primary {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.9rem;
+            font-size: .9rem;
             font-weight: 600;
-            color: map.get($t, text-tertiary);
-            background-color: map.get($t, accent);
+            color: var(--text-tertiary);
+            background-color: var(--accent);
             border: none;
-            border-radius: vars.$radius-sm;
-            padding: 0.65rem 1.5rem;
+            border-radius: var(--radius-sm);
+            padding: .65rem 1.5rem;
             cursor: pointer;
-            letter-spacing: 0.03em;
-            transition: background-color vars.$transition-fast, box-shadow vars.$transition-fast;
+            transition: background-color .2s, box-shadow .2s;
 
             &:hover {
-                background-color: map.get($t, accent-hover);
-                box-shadow: 0 0 14px map.get($t, accent-glow);
-            }
-
-            &:focus-visible {
-                outline: vars.$border-width solid map.get($t, border-glow);
-                outline-offset: 2px;
+                background-color: var(--accent-hover);
+                box-shadow: 0 0 14px var(--accent-glow);
             }
         }
     }
-}
-
-// ── Instancias de tema ───────────────────────
-.auth--admin {
-    @include auth-styles(vars.$auth-admin);
-}
-
-.auth--customer {
-    @include auth-styles(vars.$auth-customer);
 }

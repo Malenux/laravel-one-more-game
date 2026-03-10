@@ -1,18 +1,18 @@
-// ------------------------------
 //          BASE STYLES
-// ------------------------------
 @use "base/reset";
 @use "base/variables-auth";
 @use "base/variables-panel-admin";
 
-// ------------------------------
 //       COMPONENTS STYLES
-// ------------------------------
+@use "components/admin-table";
+@use "components/admin-form";
 @use "components/auth-base";
-@use "components/form";
 @use "components/layout";
 @use "components/message";
 @use "components/modal-delete";
 @use "components/svg";
-@use "components/table";
 @use "components/tooltip";
+
+//          THEME STYLES
+@use "theme/theme-auth-admin";
+@use "theme/theme-auth-customer";
