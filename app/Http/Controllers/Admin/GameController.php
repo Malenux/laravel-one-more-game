@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\GameRequest;
-use App\Models\Game;
+use App\Models\MongoDB\Game;
 use App\Services\SitemapService;
 
 class GameController extends Controller
@@ -64,7 +64,13 @@ class GameController extends Controller
   {            
     try{
 
-      $data = $request->validated();
+      $request->validated();
+      $data = $request->all();
+      $data['_id'] = $request->input('id');
+
+      $event = $this->event->updateOrCreate([
+        '_id' => $request->input('id')
+      ], $data);
 
       $game = $this->game->updateOrCreate([
         'id' => $request->input('id')

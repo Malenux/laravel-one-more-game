@@ -15,9 +15,12 @@ class GameRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'title' => 'required',
-            'description' => 'required',
+            'name' => 'required|string',
+            'name.*' => 'required',
+            'title' => 'required|string',
+            'title.*' => 'required',
+            'description' => 'required|string',
+            'description.*' => 'required',
         ];
     }
 
@@ -25,8 +28,8 @@ class GameRequest extends FormRequest
     {
         return [
             'name.required' => 'El nombre es obligatorio',
-            'title.required' => 'El título es obligatorio',
-            'description.required' => 'La descripción es obligatoria',
+            'title.*.required' => 'El título es obligatorio',
+            'description.*.required' => 'La descripción es obligatoria',
         ];
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth\Customer;
 
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
+use App\Models\MySQL\Customer;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

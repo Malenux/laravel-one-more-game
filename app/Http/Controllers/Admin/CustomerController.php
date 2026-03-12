@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CustomerRequest;
-use App\Models\Customer;
+use App\Models\MySQL\Customer;
 
 class CustomerController extends Controller
 {
@@ -67,6 +67,7 @@ class CustomerController extends Controller
     try{
 
       $data = $request->validated();
+      $data = $request->all();
 
       unset($data['password_confirmation']);
       

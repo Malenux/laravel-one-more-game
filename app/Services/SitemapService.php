@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Sitemap;
+use App\Models\MySQL\Sitemap;
 use Illuminate\Support\Str;
 
 class SitemapService

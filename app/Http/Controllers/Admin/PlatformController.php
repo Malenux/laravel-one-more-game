@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PlatformRequest;
-use App\Models\Platform;
+use App\Models\MongoDB\Platform;
 use App\Services\SitemapService;
 
 class PlatformController extends Controller
@@ -66,10 +66,12 @@ class PlatformController extends Controller
   {            
     try{
 
-      $data = $request->validated();
+      $request->validated();
+      $data = $request->all();
+      $data['_id'] = $request->input('id');
 
       $platform = $this->platform->updateOrCreate([
-        'id' => $request->input('id')
+        '_id' => $request->input('id')
       ], $data);
 
       $this->sitemapService->updateOrCreateSlug('platforms', $platform->id, $platform->name);

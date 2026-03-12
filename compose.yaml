@@ -22,11 +22,23 @@ services:
         networks:
             - sail
         depends_on:
+            - mongodb
             - mysql
             - redis
             - meilisearch
             - mailpit
             - selenium
+    mongodb:
+        image: mongo:7
+        ports:
+            - '${FORWARD_MONGODB_PORT:-27017}:27017'
+        environment:
+            MONGO_INITDB_ROOT_USERNAME: '${MONGODB_USERNAME:-root}'
+            MONGO_INITDB_ROOT_PASSWORD: '${MONGODB_PASSWORD:-secret}'
+        volumes:
+            - 'sail-mongodb:/data/db'
+        networks:
+            - sail
     mysql:
         image: 'mysql:8.4'
         ports:
@@ -110,4 +122,6 @@ volumes:
     sail-redis:
         driver: local
     sail-meilisearch:
+        driver: local
+    sail-mongodb:
         driver: local
