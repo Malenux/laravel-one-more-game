@@ -13,7 +13,7 @@
 
 <x-modal-filter
     :fields="[
-        ['title' => 'title', 'label' => 'Título', 'type' => 'text', 'placeholder' => 'Buscar por título...'],
+        ['name' => 'title', 'label' => 'Título', 'type' => 'text', 'placeholder' => 'Buscar por título...'],
         ['name' => 'name', 'label' => 'Nombre', 'type' => 'text', 'placeholder' => 'Buscar por nombre...'],
         ['name' => 'created_at', 'label' => 'Fecha',  'type' => 'date'],
     ]"

@@ -7,19 +7,20 @@ use App\Http\Controllers\Controller;
 use App\Models\MongoDB\Game;
 use Illuminate\Http\Request;
 
-class GameController extends Controller
+class HomeController extends Controller
 {
     public function __construct(private Game $game) {}
 
-    public function show(Request $request)
+    public function index()
     {
         try {
-           
-            $game = $this->game->where('id', $sitemap->entity_id)->first();
+            $games = $this->game->all();
 
-            return view('public.game', compact('game'));
+            return View::make('public.home')->with('games', $games);
         } catch (\Exception $e) {
-            return View::make('public.error');
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
         }
     }
 }

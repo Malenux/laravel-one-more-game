@@ -1,13 +1,13 @@
 import store from './redux/store';
 import { setForm, setTable } from './redux/crud-slice';
 
-const formContainer = document.querySelector('.admin-form');
+const formContainer = document.querySelector('.crud-form');
 let currentForm = null;
 
 store.subscribe(() => {
     const state = store.getState();
-    if (state.crud.form !== currentForm) {
-        formContainer.innerHTML = state.crud.form || '';
+    if (state.crud.form != currentForm) {
+        formContainer.innerHTML = state.crud.form;
         currentForm = state.crud.form;
     }
 });
@@ -68,5 +68,25 @@ formContainer?.addEventListener('click', async (event) => {
         }
     }
 
+    if (event.target.closest('.tab-language')) {
+        const tab = event.target.closest('.tab-language');
+        const target = tab.dataset.tab
 
+        formContainer.querySelectorAll('.tab-language').forEach(t => t.classList.remove('active'))
+        tab.classList.add('active')
+
+        formContainer.querySelectorAll('.tab-content-language').forEach(c => c.classList.remove('active'))
+        formContainer.querySelector(`.tab-content-language[data-tab="${target}"]`).classList.add('active')
+    }
+
+    if (event.target.closest('.tab')) {
+        const tab = event.target.closest('.tab');
+        const target = tab.dataset.tab
+
+        formContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
+        tab.classList.add('active')
+
+        formContainer.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'))
+        formContainer.querySelector(`.tab-content[data-tab="${target}"]`).classList.add('active')
+    }
 });

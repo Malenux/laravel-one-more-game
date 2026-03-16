@@ -31,45 +31,6 @@
     }
 }
 
-.tabs {
-    display: flex;
-    gap: 0.5rem;
-}
-
-.tab {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    border-radius: $radius-lg;
-
-    button {
-        background-color: $bg-raised;
-        padding: 0.2rem 0.5rem;
-        color: $text-primary;
-        border: $border-width solid $border-mid;
-        border-radius: $radius-md;
-        font-size: 1rem;
-        transition: border-color $transition-fast, color $transition-fast;
-    }
-
-    &:hover button,
-    &.active button {
-        border-color: $border-glow;
-        color: $accent;
-    }
-}
-
-.tab-content {
-    display: none;
-
-    &.active {
-        display: grid;
-        gap: 1rem;
-        grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
-    }
-}
-
 .form-element {
     display: flex;
     flex-direction: column;

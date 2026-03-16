@@ -47,7 +47,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'], function () {
     ]);
 
     Route::resource('juegos', 'App\Http\Controllers\Admin\GameController', [
-        'parameters' => ['juegos' => 'games'],
+        'parameters' => ['juegos' => 'game'],
         'names' => [
             'index'   => 'games',
             'create'  => 'games_create',
@@ -70,8 +70,14 @@ Route::middleware('auth:web')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/plataformas', 'App\Http\Controllers\Public\PlatformController@index')->name('platforms');
-Route::get('/plataformas/{platform}', 'App\Http\Controllers\Public\PlatformController@show')->name('platform');
+Route::get('/', function () {})->middleware('setlocale');
+
+Route::middleware('sitemap')->group(function () {
+  Route::get('/es', 'App\Http\Controllers\Public\HomeController@index')->name('es.home');
+  Route::get('/en', 'App\Http\Controllers\Public\HomeController@index')->name('en.home');
+  Route::get('/es/juegos/{title}', 'App\Http\Controllers\Public\GameController@show')->name('es.game');
+  Route::get('/en/games/{title}', 'App\Http\Controllers\Public\GameController@show')->name('en.game');
+});
 
 require __DIR__.'/auth.php';
 require __DIR__.'/auth-customer.php';

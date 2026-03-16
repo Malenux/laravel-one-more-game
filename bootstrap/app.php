@@ -4,6 +4,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\SetLocale;
+use App\Http\Middleware\GetSitemap;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,6 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'auth' => Authenticate::class,
+            'setlocale' => SetLocale::class,
+            'sitemap' => GetSitemap::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

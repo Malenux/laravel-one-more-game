@@ -8,7 +8,6 @@ import './table';
 import './modal-delete';
 import './modal-filter';
 import './overlay'
-import './tabs';
 
 import Alpine from 'alpinejs';
 

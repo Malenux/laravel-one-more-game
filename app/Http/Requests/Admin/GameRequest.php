@@ -17,10 +17,8 @@ class GameRequest extends FormRequest
         return [
             'name' => 'required|string',
             'name.*' => 'required',
-            'title' => 'required|string',
-            'title.*' => 'required',
-            'description' => 'required|string',
-            'description.*' => 'required',
+            'locale.*.title' => 'required|string',
+            'locale.*.description' => 'required|string',
         ];
     }
 
@@ -28,8 +26,8 @@ class GameRequest extends FormRequest
     {
         return [
             'name.required' => 'El nombre es obligatorio',
-            'title.*.required' => 'El título es obligatorio',
-            'description.*.required' => 'La descripción es obligatoria',
+            'locale.*.title.required' => 'El título es obligatorio',
+            'locale.*.description.required' => 'La descripción es obligatoria',
         ];
     }
 }

@@ -6,8 +6,6 @@
       <x-tabs :tabs="['general' => 'General']" />
 
       <div class="form__header-buttons">
-
-
         <button class="clean-button" data-endpoint="{{route('games_create')}}">
           <span class="tooltip">Limpiar</span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -30,18 +28,9 @@
   <div class="form__body">
     <form>
 
-      <input type="hidden" name="id" value="{{ $record->id }}">
+      <input type="hidden" name="id" value="{{ $record->id ?? $record->_id }}"> 
 
       <x-tab id="general" active>
-
-        <div class="form-element">
-          <div class="form-title">
-            <span>Titulo</span>
-          </div>
-          <div class="form-element-input">
-            <input type="text" placeholder="" name="title" value="{{ $record->title }}">
-          </div>
-        </div>
 
         <div class="form-element">
           <div class="form-title">
@@ -52,18 +41,30 @@
           </div>
         </div>
 
-        <div class="form-element">
-          <div class="form-title">
-            <span>Descripción</span>
-          </div>
-          <div class="form-element-input">
-            <textarea name="description" rows="5" placeholder="Escribe la descripción aquí...">{{ $record->description }}</textarea>
-          </div>
-        </div>
+        <x-language-tabs :tabs="$languages" />
 
+        @foreach($languages as $language)
+          <x-language-tab :id="$language->label" :active="$loop->first">
+            <div class="form-element">
+              <div class="form-title">
+                <span>Titulo</span>
+              </div>
+              <div class="form-element-input">
+                <input type="text" placeholder="" name="locale[{{ $language->label }}][title]" value="{{ $record->locale[$language->label]['title'] ?? '' }}">
+              </div>
+            </div>
+
+            <div class="form-element">
+              <div class="form-title">
+                <span>Descripción</span>
+              </div>
+              <div class="form-element-input">
+                <textarea name="locale[{{ $language->label }}][description]" rows="5" placeholder="Escribe la descripción aquí...">{{ $record->locale[$language->label]['description'] ?? '' }}</textarea>
+              </div>
+            </div>
+          </x-language-tab>
+        @endforeach
       </x-tab>
-
-
     </form>
 
 

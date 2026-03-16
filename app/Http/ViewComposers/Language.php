@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\ViewComposers\Admin;
+namespace App\Http\ViewComposers;
 
 use Illuminate\View\View;
 use App\Models\MySQL\Language as DBLanguage;

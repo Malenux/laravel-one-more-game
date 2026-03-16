@@ -26,7 +26,7 @@
   <div class="form__body">
 
     <form>
-      <input type="hidden" name="id" value="{{ $record->id }}">
+      <input type="hidden" name="id" value="{{ $record->id ?? $record->_id }}">
 
       <x-tab id="general" active>
         <div class="form-element">

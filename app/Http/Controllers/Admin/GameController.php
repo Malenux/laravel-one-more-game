@@ -40,7 +40,7 @@ class GameController extends Controller
     }
     catch(\Exception $e){
       return response()->json([
-        'message' => \Lang::get('admin/message.error'),
+        'message' => $e->getMessage(),
       ], 500);
     }
   }
@@ -64,19 +64,20 @@ class GameController extends Controller
   {            
     try{
 
-      $request->validated();
-      $data = $request->all();
+      $data = $request->validated();
       $data['_id'] = $request->input('id');
 
-      $event = $this->event->updateOrCreate([
+      $game = $this->game->updateOrCreate([
         '_id' => $request->input('id')
       ], $data);
 
-      $game = $this->game->updateOrCreate([
-        'id' => $request->input('id')
-      ], $data);
+      foreach ($game->locale as $language => $fields) {
+        $slugs = [
+          'title' => $fields['title']
+        ];
 
-      $this->sitemapService->updateOrCreateSlug('games', $game->id, $game->name);
+        $this->sitemapService->updateOrCreateSlug('games', $game->_id, $language, 'game', $slugs);
+      }
 
       $games = $this->game
       ->orderBy('created_at', 'desc')
@@ -119,8 +120,6 @@ class GameController extends Controller
   {
     try{
       $game->delete();
-
-      $this->sitemapService->deleteSlug('games', $game->id);
 
       $games = $this->game
       ->when(request('title'), fn($q) => $q->where('title', 'like', '%' . request('title') . '%'))

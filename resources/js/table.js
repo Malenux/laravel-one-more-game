@@ -1,7 +1,7 @@
 import store from './redux/store';
 import { setForm, setTable } from './redux/crud-slice';
 
-const tableSection = document.querySelector('.admin-table');
+const tableSection = document.querySelector('.crud-table');
 let currentTable = null;
 
 store.subscribe(() => {
