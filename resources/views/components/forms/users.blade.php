@@ -58,7 +58,7 @@
         <div class="form-element">
           <div class="form-title"><span>Avatar</span></div>
           <div class="form-element-input">
-            {{-- <input type="file" value="image" class="input-button"> --}}
+            <x-upload-image name="avatar" :value="$record->avatar" quantity="single" />
           </div>
         </div>
       </x-tab>

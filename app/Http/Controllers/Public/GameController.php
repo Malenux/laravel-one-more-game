@@ -14,10 +14,11 @@ class GameController extends Controller
     public function show(Request $request)
     {
         try {
-           
-            $game = $this->game->where('id', $sitemap->entity_id)->first();
+           $game = $this->game->where('_id', $request->attributes->get('sitemap')->entity_id )->first();
 
-            return view('public.game', compact('game'));
+            $view = View::make('public.game')->with('game', $game);
+
+            return $view;
         } catch (\Exception $e) {
             return View::make('public.error');
         }

@@ -1,5 +1,6 @@
 import store from './redux/store';
 import { setForm, setTable } from './redux/crud-slice';
+import { serializeUploadImages, initUploadImageListeners } from './upload-image';
 
 const formContainer = document.querySelector('.crud-form');
 let currentForm = null;
@@ -12,14 +13,21 @@ store.subscribe(() => {
     }
 });
 
-formContainer?.addEventListener('click', async (event) => {
+initUploadImageListeners(formContainer);
+
+formContainer?.addEventListener('click', async event => {
     event.preventDefault();
 
     if (event.target.closest('.save-button')) {
-        const form = formContainer.querySelector('form');
         const saveButton = event.target.closest('.save-button');
         const endpoint = saveButton.dataset.endpoint;
+        const form = formContainer.querySelector('form');
         const formData = new FormData(form);
+
+        if (formContainer.querySelector('.upload-image-container')) {
+            const images = serializeUploadImages(formContainer);
+            formData.append('images', JSON.stringify(images));
+        }
 
         try {
             const response = await fetch(endpoint, {
@@ -31,62 +39,56 @@ formContainer?.addEventListener('click', async (event) => {
                 body: formData
             });
 
-            const data = await response.json();
+            if (response.status === 500 || response.status === 422) {
+                throw response;
+            }
 
-            if (response.status === 422) {
+            if (response.status === 200) {
+                const data = await response.json();
+                store.dispatch(setForm(data.form));
+                store.dispatch(setTable(data.table));
+                document.dispatchEvent(new CustomEvent('message', {
+                    detail: { message: data.message, type: 'success' }
+                }));
+            }
+
+        } catch (error) {
+            if (error.status === 422) {
+                const data = await error.json();
                 document.dispatchEvent(new CustomEvent('showformValidations', {
                     detail: {
-                        formValidation: form.previousElementSibling,
+                        formValidation: formContainer.querySelector('form').previousElementSibling,
                         errors: data.errors
                     }
                 }));
                 document.dispatchEvent(new CustomEvent('message', {
                     detail: { message: data.message, type: 'error' }
                 }));
-                return;
             }
-
-            if (response.status === 500) {
+            if (error.status === 500) {
+                const data = await error.json();
                 document.dispatchEvent(new CustomEvent('message', {
                     detail: { message: data.message, type: 'error' }
                 }));
-                return;
             }
-
-            store.dispatch(setForm(data.form));
-            store.dispatch(setTable(data.table));
-
-            document.dispatchEvent(new CustomEvent('message', {
-                detail: { message: data.message, type: 'success' }
-            }));
-
-        } catch (error) {
-            console.error('Error en submit del form:', error);
-            document.dispatchEvent(new CustomEvent('message', {
-                detail: { message: 'Error de red o inesperado.', type: 'error' }
-            }));
         }
     }
 
     if (event.target.closest('.tab-language')) {
         const tab = event.target.closest('.tab-language');
-        const target = tab.dataset.tab
-
-        formContainer.querySelectorAll('.tab-language').forEach(t => t.classList.remove('active'))
-        tab.classList.add('active')
-
-        formContainer.querySelectorAll('.tab-content-language').forEach(c => c.classList.remove('active'))
-        formContainer.querySelector(`.tab-content-language[data-tab="${target}"]`).classList.add('active')
+        const target = tab.dataset.tab;
+        formContainer.querySelectorAll('.tab-language').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        formContainer.querySelectorAll('.tab-content-language').forEach(c => c.classList.remove('active'));
+        formContainer.querySelector(`.tab-content-language[data-tab="${target}"]`).classList.add('active');
     }
 
     if (event.target.closest('.tab')) {
         const tab = event.target.closest('.tab');
-        const target = tab.dataset.tab
-
-        formContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
-        tab.classList.add('active')
-
-        formContainer.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'))
-        formContainer.querySelector(`.tab-content[data-tab="${target}"]`).classList.add('active')
+        const target = tab.dataset.tab;
+        formContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        formContainer.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        formContainer.querySelector(`.tab-content[data-tab="${target}"]`).classList.add('active');
     }
 });

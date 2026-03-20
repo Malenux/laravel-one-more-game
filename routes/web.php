@@ -9,6 +9,11 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'], function () {
 
+    
+    Route::post('/images', 'App\Http\Controllers\Admin\ImageController@store')->name('images_store');
+    Route::get('/images/thumb/{filename}', 'App\Http\Controllers\Admin\ImageController@showThumb')->name('images_thumb');
+    Route::delete('/images/{filename}', 'App\Http\Controllers\Admin\ImageController@destroy')->name('images_destroy');
+    
     Route::get('/panel', function () {
         return view('admin.dashboard.index');
     })->name('dashboard');
@@ -72,12 +77,15 @@ Route::middleware('auth:web')->group(function () {
 
 Route::get('/', function () {})->middleware('setlocale');
 
+
 Route::middleware('sitemap')->group(function () {
-  Route::get('/es', 'App\Http\Controllers\Public\HomeController@index')->name('es.home');
-  Route::get('/en', 'App\Http\Controllers\Public\HomeController@index')->name('en.home');
-  Route::get('/es/juegos/{title}', 'App\Http\Controllers\Public\GameController@show')->name('es.game');
-  Route::get('/en/games/{title}', 'App\Http\Controllers\Public\GameController@show')->name('en.game');
+    Route::get('/es', 'App\Http\Controllers\Public\HomeController@index')->name('es.home');
+    Route::get('/en', 'App\Http\Controllers\Public\HomeController@index')->name('en.home');
+    Route::get('/es/juegos/{title}', 'App\Http\Controllers\Public\GameController@show')->name('es.game');
+    Route::get('/en/games/{title}', 'App\Http\Controllers\Public\GameController@show')->name('en.game');
 });
+
+Route::post('/change-language', 'App\Http\Controllers\Public\LanguageController@changeLanguage')->name('change-language');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/auth-customer.php';

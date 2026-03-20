@@ -3,7 +3,7 @@
   <div class="form__header">
     <div class="form__header-box">
       
-      <x-tabs :tabs="['general' => 'General']" />
+      <x-tabs :tabs="['general' => 'General', 'images' => 'Imagenes']" />
 
       <div class="form__header-buttons">
         <button class="clean-button" data-endpoint="{{route('games_create')}}">
@@ -64,6 +64,10 @@
             </div>
           </x-language-tab>
         @endforeach
+      </x-tab>
+
+      <x-tab id="images">
+        
       </x-tab>
     </form>
 

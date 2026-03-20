@@ -16,11 +16,11 @@
 
     <body class="admin-panel">
     
-        <x-header>
+        <x-header-admin>
             <x-slot name="title">
                 {{ $title }}
             </x-slot>
-        </x-header>
+        </x-header-admin>
 
         <main>
             {{ $slot }}
@@ -28,6 +28,8 @@
 
         <x-message />
         <x-modal-delete />
-
+        <div class="overlay" id="modal-image">
+            <x-modal-image />
+        </div>
     </body>
 </html>

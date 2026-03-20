@@ -1,8 +1,7 @@
-// modal-delete.js
 import store from './redux/store';
 import { setDeleteModal, setTable } from './redux/crud-slice';
 
-const deleteModalBox = document.querySelector('.delete-modal'); // ← renombrado
+const deleteModalBox = document.querySelector('.delete-modal');
 
 store.subscribe(() => {
     const { deleteModal } = store.getState().crud;

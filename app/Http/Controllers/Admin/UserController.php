@@ -74,10 +74,8 @@ class UserController extends Controller
       if (!$request->filled('password') && $request->filled('id')){
         unset($data['password']);
       }
-  
-      $this->user->updateOrCreate([
-        'id' => $request->input('id')
-      ], $data);
+
+      $this->user->updateOrCreate(['id' => $request->input('id')], $data);
 
       $users = $this->user
       ->orderBy('created_at', 'desc')

@@ -1,0 +1,85 @@
+@use "../../base/variables-panel-admin" as *;
+
+.upload-image-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.square-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    border: $border-width dashed $border-mid;
+    border-radius: $radius-sm;
+    transition: border-color $transition-fast, box-shadow $transition-fast;
+
+    svg {
+        fill: $icon-muted;
+        transition: fill $transition-fast;
+    }
+
+    &:hover {
+        border-color: $accent;
+        box-shadow: 0 0 0 3px $accent-glow;
+
+        svg {
+            fill: $accent;
+        }
+    }
+}
+
+.upload-image {
+    position: relative;
+    width: 5rem;
+    height: 5rem;
+    border-radius: $radius-sm;
+    overflow: hidden;
+    border: $border-width solid $border-dim;
+
+    &.hidden {
+        display: none;
+    }
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .delete-button {
+        position: absolute;
+        top: 0.25rem;
+        right: 0.25rem;
+        background-color: $bg-delete-btn;
+        border: $border-width solid $border-delete;
+        border-radius: $radius-sm;
+        padding: 0.2rem;
+        display: flex;
+        opacity: 0;
+        transition: opacity $transition-fast, border-color $transition-fast;
+
+        svg {
+            width: 1rem;
+            height: 1rem;
+            fill: $icon-delete;
+            transition: fill $transition-fast;
+        }
+
+        &:hover {
+            border-color: $state-error-light;
+
+            svg {
+                fill: $state-error-light;
+            }
+        }
+    }
+
+    &:hover .delete-button {
+        opacity: 1;
+    }
+}

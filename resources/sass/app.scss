@@ -1,15 +1,26 @@
-//          BASE STYLES
+//#######BASE STYLES#######
 @use "base/reset";
 @use "base/variables-auth";
 @use "base/variables-panel-admin";
 
-//       COMPONENTS STYLES
-@use "components/admin-table";
-@use "components/admin-modals-delete";
-@use "components/admin-modals-filter";
-@use "components/admin-modals";
-@use "components/admin-form";
-@use "components/auth-base";
+//#######COMPONENTS STYLES#######
+
+//---ADMIN COMPONENTS STYLES---
+@use "components/admin/admin-table";
+@use "components/admin/admin-modal-image";
+@use "components/admin/admin-modals-delete";
+@use "components/admin/admin-modals-filter";
+@use "components/admin/admin-modals";
+@use "components/admin/admin-form";
+@use "components/admin/auth-base";
+@use "components/admin/upload-image";
+
+//---PUBLIC COMPONENTS STYLES---
+@use "public/error";
+
+//---GENERAL COMPONENTS STYLES---
+@use "components/grid";
+@use "components/element-card";
 @use "components/layout";
 @use "components/message";
 @use "components/overlay";
@@ -17,6 +28,6 @@
 @use "components/tooltip";
 @use "components/tabs";
 
-//          THEME STYLES
+//#######THEME STYLES#######
 @use "theme/theme-auth-admin";
 @use "theme/theme-auth-customer";

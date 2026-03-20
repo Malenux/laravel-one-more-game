@@ -16,6 +16,9 @@ export const crudSlice = createSlice({
             endpoint: null,
             params: {}
         },
+        imageModal: {
+            active: false,
+        },
         message: {
             text: null,
             type: null
@@ -31,8 +34,13 @@ export const crudSlice = createSlice({
         setDeleteModal: (state, action) => {
             state.deleteModal = { ...state.deleteModal, ...action.payload };
             state.overlayActive = action.payload.active ?? state.overlayActive;
-        }, setFilterModal: (state, action) => {
+        },
+        setFilterModal: (state, action) => {
             state.filterModal = { ...state.filterModal, ...action.payload };
+            state.overlayActive = action.payload.active ?? state.overlayActive;
+        },
+        setImageModal: (state, action) => {
+            state.imageModal = { ...state.imageModal, ...action.payload };
             state.overlayActive = action.payload.active ?? state.overlayActive;
         },
         setMessage: (state, action) => {
@@ -41,5 +49,5 @@ export const crudSlice = createSlice({
     },
 });
 
-export const { setForm, setTable, setDeleteModal, setFilterModal, setMessage } = crudSlice.actions;
+export const { setForm, setTable, setDeleteModal, setFilterModal, setImageModal, setMessage } = crudSlice.actions;
 export default crudSlice.reducer;

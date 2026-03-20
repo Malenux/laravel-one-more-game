@@ -19,6 +19,7 @@ class GetSitemap
   {
     $sitemap = Sitemap::where('path', $request->url())->first();
 
+
     if(!$sitemap){
       return response()->json([
         'message' => 'Sitemap not found',

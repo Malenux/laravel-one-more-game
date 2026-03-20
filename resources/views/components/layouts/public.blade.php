@@ -15,7 +15,6 @@
     </head>
 
     <body>
-    
         <x-header>
             <x-slot name="title">
                 {{ $title ?? 'One More Game' }}

@@ -25,5 +25,11 @@ class ViewComposerServiceProvider extends ServiceProvider
       ],
         'App\Http\ViewComposers\Language'
       );
+
+      view()->composer([
+        'components.modal-image',
+      ],
+        'App\Http\ViewComposers\Image'
+      );
     }
 }
