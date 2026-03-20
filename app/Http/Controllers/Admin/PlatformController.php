@@ -67,7 +67,6 @@ class PlatformController extends Controller
     try{
 
       $request->validated();
-      $data = $request->all();
       $data['_id'] = $request->input('id');
 
       $platform = $this->platform->updateOrCreate([

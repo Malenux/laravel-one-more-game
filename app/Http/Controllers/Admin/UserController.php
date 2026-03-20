@@ -65,11 +65,10 @@ class UserController extends Controller
   public function store(UserRequest $request)
   {            
     try{
-
       $data = $request->validated();
-      $data = $request->all();
 
       unset($data['password_confirmation']);
+      unset($data['images']);
       
       if (!$request->filled('password') && $request->filled('id')){
         unset($data['password']);

@@ -25,8 +25,25 @@ formContainer?.addEventListener('click', async event => {
         const formData = new FormData(form);
 
         if (formContainer.querySelector('.upload-image-container')) {
-            const images = serializeUploadImages(formContainer);
-            formData.append('images', JSON.stringify(images));
+            const images = []
+            const uploadImageContainers = formContainer.querySelectorAll('.upload-image-container')
+
+            uploadImageContainers.forEach(uploadImageContainer => {
+                if (uploadImageContainer.querySelector('img').getAttribute('src')) {
+                    const image = {
+                        name: uploadImageContainer.dataset.name,
+                        languageAlias: uploadImageContainer.dataset.language,
+                        imageConfigurations: JSON.parse(uploadImageContainer.dataset.configuration),
+                        filename: uploadImageContainer.querySelector('img').getAttribute('src').split('/').pop(),
+                        alt: uploadImageContainer.querySelector('img').getAttribute('alt'),
+                        title: uploadImageContainer.querySelector('img').getAttribute('title')
+                    }
+
+                    images.push(image)
+                }
+            })
+
+            formData.append('images', JSON.stringify(images))
         }
 
         try {

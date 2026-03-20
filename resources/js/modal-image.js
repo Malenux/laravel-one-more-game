@@ -21,7 +21,6 @@ modalImage?.addEventListener('click', async event => {
 
     if (event.target.closest('.image-modal__close')) {
         modalImage.classList.remove('active');
-        modal.classList.remove('active');
         modalImage.querySelector('.image-modal__item.selected')?.classList.remove('selected');
         modalImage.querySelector('.image-modal__btn--confirm')?.classList.remove('active');
         modalImage.querySelector('input[name="alt"]').value = '';
@@ -39,16 +38,24 @@ modalImage?.addEventListener('click', async event => {
         const selectedItem = modalImage.querySelector('.image-modal__item.selected');
         if (!selectedItem || !activeUploadContainer) return;
 
-        const img = activeUploadContainer.querySelector('img');
-        img.src = selectedItem.querySelector('img').getAttribute('src');
-        img.alt = modalImage.querySelector('input[name="alt"]').value;
-        img.title = modalImage.querySelector('input[name="title"]').value;
+        if (activeUploadContainer.dataset.quantity === 'single') {
+            const img = activeUploadContainer.querySelector('img');
+            img.src = selectedItem.querySelector('img').getAttribute('src');
+            img.alt = modalImage.querySelector('input[name="alt"]').value;
+            img.title = modalImage.querySelector('input[name="title"]').value;
+            activeUploadContainer.querySelector('.upload-image').classList.remove('hidden');
+        } else {
+            const clone = activeUploadContainer.querySelector('.upload-image').cloneNode(true);
+            clone.querySelector('img').src = selectedItem.querySelector('img').getAttribute('src');
+            clone.querySelector('img').alt = modalImage.querySelector('input[name="alt"]').value;
+            clone.querySelector('img').title = modalImage.querySelector('input[name="title"]').value;
+            activeUploadContainer.appendChild(clone);
+            clone.classList.remove('hidden');
+        }
 
-        activeUploadContainer.querySelector('.upload-image').classList.remove('hidden');
-
+        modalImage.querySelector('input[name="alt"]').value = '';
+        modalImage.querySelector('input[name="title"]').value = '';
         modalImage.classList.remove('active');
-        modal.classList.remove('active');
-
     }
 
     if (event.target.closest('.image-modal__item-delete')) {

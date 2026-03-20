@@ -67,9 +67,9 @@ class CustomerController extends Controller
     try{
 
       $data = $request->validated();
-      $data = $request->all();
 
       unset($data['password_confirmation']);
+      unset($data['images']);
       
       if (!$request->filled('password') && $request->filled('id')){
         unset($data['password']);

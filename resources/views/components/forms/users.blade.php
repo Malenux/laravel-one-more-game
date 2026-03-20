@@ -58,7 +58,28 @@
         <div class="form-element">
           <div class="form-title"><span>Avatar</span></div>
           <div class="form-element-input">
-            <x-upload-image name="avatar" :value="$record->avatar" quantity="single" />
+            <x-upload-image name="avatar" :value="$record->avatar" quantity="single" configuration='{
+              "thumbnail": {
+                  "widthPx": "100",
+                  "heightPx": "100"
+              },
+              "xs": {
+                  "widthPx": "200",
+                  "heightPx": "200"
+              },
+              "sm": {
+                  "widthPx": "200",
+                  "heightPx": "200"
+              },
+              "md": {
+                  "widthPx": "450",
+                  "heightPx": "450"
+              },
+              "lg": {
+                  "widthPx": "450",
+                  "heightPx": "450"
+              }
+          }'/>
           </div>
         </div>
       </x-tab>

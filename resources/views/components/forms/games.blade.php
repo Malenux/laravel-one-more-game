@@ -67,7 +67,12 @@
       </x-tab>
 
       <x-tab id="images">
-        
+        <div class="form-element">
+          <div class="form-title"><span>Imagenes</span></div>
+          <div class="form-element-input">
+            <x-upload-image name="images" :value="$record->images" quantity="multiple" />
+          </div>
+        </div>
       </x-tab>
     </form>
 
