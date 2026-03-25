@@ -4,37 +4,36 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
-use App\Events\GameStored;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\GameRequest;
-use App\Models\MongoDB\Game;
+use App\Http\Requests\Admin\FaqRequest;
+use App\Models\MongoDB\Faq;
 use App\Services\SitemapService;
 
-class GameController extends Controller
+class FaqController extends Controller
 {
   
-  public function __construct(private Game $game, private SitemapService $sitemapService){}
+  public function __construct(private Faq $faq, private SitemapService $sitemapService){}
   
   public function index()
   {
     try{
 
-      $games = $this->game
+      $faqs = $this->faq
         ->orderBy('created_at', 'desc')
         ->paginate(10);
       
       if(request()->ajax()) {
             
         return response()->json([
-          'table' => view('components.tables.games', ['records' => $games])->render(),
-          'form' => view('components.forms.games', ['record' => $this->game])->render()
+          'table' => view('components.tables.faqs', ['records' => $faqs])->render(),
+          'form' => view('components.forms.faqs', ['record' => $this->faq])->render()
         ], 200); 
 
       }else{
 
-        $view = View::make('admin.games.index')
-        ->with('records', $games)
-        ->with('record', $this->game);
+        $view = View::make('admin.faqs.index')
+        ->with('records', $faqs)
+        ->with('record', $this->faq);
 
         return $view;
       }
@@ -51,7 +50,7 @@ class GameController extends Controller
     try {
       if (request()->ajax()) {
         return response()->json([
-          'form' => view('components.forms.games', ['record' => $this->game])->render(),
+          'form' => view('components.forms.faqs', ['record' => $this->faq])->render(),
         ], 200);
       }
     } catch (\Exception $e) {
@@ -61,25 +60,18 @@ class GameController extends Controller
     }
   }
 
-  public function store(GameRequest $request)
-  {            
+  public function store(FaqRequest $request)
+{            
     try{
+        $data = $request->validated();
+        $data['_id'] = $request->input('id');
+        $data['active'] = $request->boolean('active');
 
-      $data = $request->validated();
-      $data['_id'] = $request->input('id');
+        $faq = $this->faq->updateOrCreate([
+          '_id' => $request->input('id')
+        ], $data);
 
-      $game = $this->game->updateOrCreate([
-        '_id' => $request->input('id')
-      ], $data);
-
-      GameStored::dispatch(
-        $game,
-        $request->filled('images')
-          ? $request->input('images')
-          : []
-      );
-
-      $games = $this->game
+      $faqs = $this->faq
       ->orderBy('created_at', 'desc')
       ->paginate(10);
 
@@ -90,8 +82,8 @@ class GameController extends Controller
       }
       
       return response()->json([
-        'table' => view('components.tables.games', ['records' => $games])->render(),
-        'form' => view('components.forms.games', ['record' => $this->game])->render(),
+        'table' => view('components.tables.faqs', ['records' => $faqs])->render(),
+        'form' => view('components.forms.faqs', ['record' => $this->faq])->render(),
         'message' => $message,
       ], 200);
     }
@@ -102,11 +94,11 @@ class GameController extends Controller
     }
   }
 
-  public function edit(Game $game)
+  public function edit(Faq $faq)
   {
     try{
       return response()->json([
-        'form' => view('components.forms.games', ['record' => $game])->render(),
+        'form' => view('components.forms.faqs', ['record' => $faq])->render(),
       ], 200);
     }
     catch(\Exception $e){
@@ -116,14 +108,15 @@ class GameController extends Controller
     }
   }
 
-  public function destroy(Game $game)
+  public function destroy(Faq $faq)
   {
     try{
-      $game->delete();
+      $faq->delete();
 
-      $games = $this->game
-      ->when(request('title'), fn($q) => $q->where('title', 'like', '%' . request('title') . '%'))
+      $faqs = $this->faq
       ->when(request('name'), fn($q) => $q->where('name', 'like', '%' . request('name') . '%'))
+      ->when(request('question'), fn($q) => $q->where('question', 'like', '%' . request('question') . '%'))
+      ->when(request('answer'), fn($q) => $q->where('answer', 'like', '%' . request('answer') . '%'))
       ->when(request('created_at'), fn($q) => $q->whereDate('created_at', request('created_at')))
       ->orderBy('created_at', 'desc')
       ->paginate(10);
@@ -131,8 +124,8 @@ class GameController extends Controller
       $message = \Lang::get('admin/message.destroy');
       
       return response()->json([
-        'table' => view('components.tables.games', ['records' => $games])->render(),
-        'form' => view('components.forms.games', ['record' => $this->game])->render(),
+        'table' => view('components.tables.faqs', ['records' => $faqs])->render(),
+        'form' => view('components.forms.faqs', ['record' => $this->faq])->render(),
         'message' => $message,
       ], 200);
     }

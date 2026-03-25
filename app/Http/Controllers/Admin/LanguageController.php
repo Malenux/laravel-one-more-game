@@ -86,7 +86,6 @@ class LanguageController extends Controller
     try{
 
       $request->validated();
-      $data = $request->all();
       $data['_id'] = $request->input('id');
 
       $language = $this->language->updateOrCreate([

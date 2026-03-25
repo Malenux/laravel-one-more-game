@@ -17,9 +17,10 @@
 
 //---PUBLIC COMPONENTS STYLES---
 @use "public/error";
+@use "public/grid";
+@use "public/faq";
 
 //---GENERAL COMPONENTS STYLES---
-@use "components/grid";
 @use "components/element-card";
 @use "components/layout";
 @use "components/message";

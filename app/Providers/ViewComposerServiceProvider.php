@@ -21,6 +21,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
       view()->composer([
         'components.forms.games',
+        'components.forms.faqs',
         'components.language-selector'
       ],
         'App\Http\ViewComposers\Language'

@@ -1,5 +1,21 @@
-<x-layouts.public :title="'Juegos'">
+<x-layouts.public>
     <div class="grid">
         <x-grid :elements="$games" route="game"/>
     </div>
+
+    <section class="faqs">
+    @foreach($faqs as $faq)
+        <div class="faq">
+            <div class="faq__question">
+                <span>{{ $faq->locale[app()->getLocale()]['question'] ?? '' }}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M7 10l5 5 5-5z"/>
+                </svg>
+            </div>
+            <div class="faq__answer">
+                <p>{{ $faq->locale[app()->getLocale()]['answer'] ?? '' }}</p>
+            </div>
+        </div>
+    @endforeach
+</section>
 </x-layouts.public>

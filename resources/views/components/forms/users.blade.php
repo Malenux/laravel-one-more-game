@@ -79,7 +79,7 @@
                   "widthPx": "450",
                   "heightPx": "450"
               }
-          }'/>
+            }' />
           </div>
         </div>
       </x-tab>

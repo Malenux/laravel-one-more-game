@@ -15,7 +15,7 @@ document.addEventListener('openModalDelete', event => {
     }));
 });
 
-deleteModalBox?.addEventListener('click', event => {
+deleteModalBox?.addEventListener('click', async event => {
     if (event.target.closest('.delete-modal__btn--cancel')) {
         store.dispatch(setDeleteModal({ active: false }));
         document.dispatchEvent(new CustomEvent('message', {
@@ -23,9 +23,7 @@ deleteModalBox?.addEventListener('click', event => {
         }));
         return;
     }
-});
 
-deleteModalBox?.addEventListener('click', async event => {
     if (!event.target.closest('.delete-modal__btn--confirm')) return;
 
     const endpoint = store.getState().crud.deleteModal.endpoint;

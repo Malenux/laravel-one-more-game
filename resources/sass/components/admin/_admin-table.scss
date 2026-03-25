@@ -94,7 +94,30 @@
             font-size: 0.9rem;
             color: $text-primary;
         }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.2rem 0.6rem;
+            border-radius: $radius-sm;
+            font-size: 0.75rem;
+            font-weight: 600;
+            width: fit-content;
+
+            &--active {
+                background-color: $state-success-dark;
+                color: $state-confirm;
+                border: $border-width solid $state-success;
+            }
+
+            &--inactive {
+                background-color: $state-error-dark;
+                color: $state-error-light;
+                border: $border-width solid $state-error;
+            }
+        }
     }
+
 }
 
 .element-box__upper-row {

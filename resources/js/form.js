@@ -16,7 +16,10 @@ store.subscribe(() => {
 initUploadImageListeners(formContainer);
 
 formContainer?.addEventListener('click', async event => {
-    event.preventDefault();
+
+    if (!event.target.closest('input[type="checkbox"]')) {
+        event.preventDefault();
+    }
 
     if (event.target.closest('.save-button')) {
         const saveButton = event.target.closest('.save-button');

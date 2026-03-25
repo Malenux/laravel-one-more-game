@@ -74,6 +74,13 @@
         line-height: 1.5;
         overflow-y: auto;
     }
+
+    input[type="checkbox"] {
+        width: 1.25rem;
+        height: 1.25rem;
+        accent-color: $accent;
+        cursor: pointer;
+    }
 }
 
 .validation-errors {

@@ -61,6 +61,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:web'], function () {
             'destroy' => 'games_destroy',
         ]
     ]);
+
+    Route::resource('preguntas', 'App\Http\Controllers\Admin\FaqController', [
+        'parameters' => ['preguntas' => 'faq'],
+        'names' => [
+            'index'   => 'faqs',
+            'create'  => 'faqs_create',
+            'store'   => 'faqs_store',
+            'edit'    => 'faqs_edit',
+            'destroy' => 'faqs_destroy',
+        ]
+    ]);
 });
 
 Route::group(['prefix' => 'cuenta', 'middleware' => 'auth:customer'], function () {
@@ -77,15 +88,14 @@ Route::middleware('auth:web')->group(function () {
 
 Route::get('/', function () {})->middleware('setlocale');
 
-
 Route::middleware('sitemap')->group(function () {
-    Route::get('/es', 'App\Http\Controllers\Public\HomeController@index')->name('es.home');
-    Route::get('/en', 'App\Http\Controllers\Public\HomeController@index')->name('en.home');
-    Route::get('/es/juegos/{title}', 'App\Http\Controllers\Public\GameController@show')->name('es.game');
-    Route::get('/en/games/{title}', 'App\Http\Controllers\Public\GameController@show')->name('en.game');
+    Route::get('/es', 'App\Http\Controllers\Front\HomeController@index')->name('es.home');
+    Route::get('/en', 'App\Http\Controllers\Front\HomeController@index')->name('en.home');
+    Route::get('/es/juegos/{title}', 'App\Http\Controllers\Front\GameController@show')->name('es.game');
+    Route::get('/en/games/{title}', 'App\Http\Controllers\Front\GameController@show')->name('en.game');
 });
 
-Route::post('/change-language', 'App\Http\Controllers\Public\LanguageController@changeLanguage')->name('change-language');
+Route::post('/change-language', 'App\Http\Controllers\Front\LanguageController@changeLanguage')->name('change_language');
 
 require __DIR__.'/auth.php';
 require __DIR__.'/auth-customer.php';

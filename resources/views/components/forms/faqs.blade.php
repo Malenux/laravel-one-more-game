@@ -3,17 +3,17 @@
   <div class="form__header">
     <div class="form__header-box">
       
-      <x-tabs :tabs="['general' => 'General', 'images' => 'Imagenes']" />
+      <x-tabs :tabs="['general' => 'General']" />
 
       <div class="form__header-buttons">
-        <button class="clean-button" data-endpoint="{{route('games_create')}}">
+        <button class="clean-button" data-endpoint="{{route('faqs_create')}}">
           <span class="tooltip">Limpiar</span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M16.24,3.56L21.19,8.5C21.97,9.29 21.97,10.55 21.19,11.34L12,20.53C10.44,22.09 7.91,22.09 6.34,20.53L2.81,17C2.03,16.21 2.03,14.95 2.81,14.16L13.41,3.56C14.2,2.78 15.46,2.78 16.24,3.56M4.22,15.58L7.76,19.11C8.54,19.9 9.8,19.9 10.59,19.11L14.12,15.58L9.17,10.63L4.22,15.58Z" />
           </svg>
         </button>
 
-        <button class="save-button" data-endpoint="{{route('games_store')}}">
+        <button class="save-button" data-endpoint="{{route('faqs_store')}}">
           <span class="tooltip">Guardar</span>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z" />
@@ -41,59 +41,39 @@
           </div>
         </div>
 
+        <div class="form-element">
+          <div class="form-title">
+            <span>Activo</span>
+          </div>
+          <div class="form-element-input">
+            <input type="hidden" name="active" value="0">
+            <input type="checkbox" name="active" value="1" {{ $record->active ? 'checked' : '' }}>
+          </div>
+        </div>
+
         <x-language-tabs :tabs="$languages" />
 
         @foreach($languages as $language)
           <x-language-tab :id="$language->label" :active="$loop->first">
             <div class="form-element">
               <div class="form-title">
-                <span>Titulo</span>
+                <span>Pregunta</span>
               </div>
               <div class="form-element-input">
-                <input type="text" placeholder="" name="locale[{{ $language->label }}][title]" value="{{ $record->locale[$language->label]['title'] ?? '' }}">
+                <input type="text" placeholder="" name="locale[{{ $language->label }}][question]" value="{{ $record->locale[$language->label]['question'] ?? '' }}">
               </div>
             </div>
 
             <div class="form-element">
               <div class="form-title">
-                <span>Descripción</span>
+                <span>Respuesta</span>
               </div>
               <div class="form-element-input">
-                <textarea name="locale[{{ $language->label }}][description]" rows="5" placeholder="Escribe la descripción aquí...">{{ $record->locale[$language->label]['description'] ?? '' }}</textarea>
+                <textarea name="locale[{{ $language->label }}][answer]" rows="5" placeholder="Escribe la respuesta aquí...">{{ $record->locale[$language->label]['answer'] ?? '' }}</textarea>
               </div>
             </div>
           </x-language-tab>
         @endforeach
-      </x-tab>
-
-      <x-tab id="images">
-        <div class="form-element">
-          <div class="form-title"><span>Imagenes</span></div>
-          <div class="form-element-input">
-            <x-upload-image name="avatar" :value="$record->avatar" quantity="single" configuration='{
-              "thumbnail": {
-                  "widthPx": "100",
-                  "heightPx": "100"
-              },
-              "xs": {
-                  "widthPx": "200",
-                  "heightPx": "200"
-              },
-              "sm": {
-                  "widthPx": "200",
-                  "heightPx": "200"
-              },
-              "md": {
-                  "widthPx": "450",
-                  "heightPx": "450"
-              },
-              "lg": {
-                  "widthPx": "450",
-                  "heightPx": "450"
-              }
-            }' />
-          </div>
-        </div>
       </x-tab>
     </form>
 
